@@ -8,6 +8,8 @@ public class LibrarysystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LibrarysystemApplication.class, args);
+		
+//		test
 	}
 
 }
