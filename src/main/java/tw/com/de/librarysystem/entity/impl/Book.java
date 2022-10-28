@@ -20,7 +20,7 @@ public class Book implements Serializable {
 	private Integer id;
 	private String title;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BOOKCATEGORY_ID")
 	private BookCategory bookCategory;
 

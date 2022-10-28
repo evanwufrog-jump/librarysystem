@@ -1,6 +1,7 @@
 package tw.com.de.librarysystem.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,21 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> findAll() {
 		return bookDao.findAll();
+	}
+
+	@Override
+	public Optional<Book> getBook(Integer pk) {
+		return bookDao.findById(pk);
+	}
+
+	@Override
+	public void delete(Integer pk) {
+		bookDao.deleteById(pk);
+	}
+
+	@Override
+	public Book saveOrUpdate(Book book) {
+		return bookDao.save(book);
 	}
 
 }
