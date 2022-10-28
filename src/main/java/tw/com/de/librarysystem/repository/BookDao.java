@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import tw.com.de.librarysystem.entity.impl.Book;
 @Repository
 public interface BookDao extends JpaRepository<tw.com.de.librarysystem.entity.impl.Book, Integer>{
-	
-	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,String technology);
+//	書名、作者、書本技術分類模糊查詢
+	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
+			String technology);
 }
