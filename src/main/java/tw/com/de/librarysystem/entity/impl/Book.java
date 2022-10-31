@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -12,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity
@@ -27,33 +28,33 @@ public class Book implements Serializable {
 	private String author;
 	private String technology;
 	private String publisher;
-	
-	@Column(columnDefinition = "Date")
-	private Date publishDate;
-	
-	private String status;
 
-	@Column(columnDefinition = "Date")
-	private Date postStart;
-	
+	@Temporal(TemporalType.DATE)
+	private Date publishDate;
+
+	private String status = "上架";
+
+	@Temporal(TemporalType.DATE)
+	private Date postStart = new Date();
+
 	private String isbn;
-	private String desecription;
+	private String description;
 	private Integer day;
-	
+
 	@OneToMany
 	@JoinColumn(name = "id")
 	private Set<BookPic> bookPics;
-	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "book")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	private Set<Advice> advices;
-	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "book")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	private Set<Reservation> reservations;
-	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "book")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	private Set<Record> records;
 
-	@OneToOne(fetch = FetchType.LAZY,mappedBy = "book")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "book")
 	private LendingList lendingList;
 
 	public Integer getId() {
@@ -112,21 +113,20 @@ public class Book implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-	public Date getPostStart() {
-		return postStart;
-	}
-
-	public void setPostStart(Date postStart) {
-		this.postStart = postStart;
-	}
-
-	
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Date getPostStart() {
+		return postStart;
+	}
+
+	public void setPostStart(Date postStart) {
+		this.postStart = postStart;
 	}
 
 	public String getIsbn() {
@@ -137,12 +137,12 @@ public class Book implements Serializable {
 		this.isbn = isbn;
 	}
 
-	public String getDesecription() {
-		return desecription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesecription(String desecription) {
-		this.desecription = desecription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Integer getDay() {
@@ -192,6 +192,5 @@ public class Book implements Serializable {
 	public void setLendingList(LendingList lendingList) {
 		this.lendingList = lendingList;
 	}
-
 
 }

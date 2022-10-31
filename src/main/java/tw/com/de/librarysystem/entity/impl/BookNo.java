@@ -1,7 +1,5 @@
 package tw.com.de.librarysystem.entity.impl;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,26 +10,31 @@ public class BookNo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(columnDefinition = "Date")
-	private Date year;
-	private String number;
+	private Integer year;
+	private Integer number;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Date getYear() {
+
+	public Integer getYear() {
 		return year;
 	}
-	public void setYear(Date year) {
+
+	public void setYear(Integer year) {
 		this.year = year;
 	}
-	public String getNumber() {
+
+	public Integer getNumber() {
 		return number;
 	}
-	public void setNumber(String number) {
+
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
+
 }

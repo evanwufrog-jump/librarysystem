@@ -3,6 +3,7 @@ package tw.com.de.librarysystem.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 
 import tw.com.de.librarysystem.entity.impl.Book;
 
@@ -12,9 +13,13 @@ public interface BookService {
 
 	List<Book> findAll();
 
-	Optional<Book> getBook(Integer pk);
+	Optional<Book> getBook(Integer id);
 	
-	void delete(Integer pk);
+	boolean delete(Integer id);
 	
-	Book saveOrUpdate(Book book);
+	Book save(Book book);
+	
+	void updateStatusById(@Param("id")Integer id);
+	
+	void updateStatus2ById(@Param("id")Integer id);
 }

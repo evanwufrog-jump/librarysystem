@@ -32,18 +32,45 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Optional<Book> getBook(Integer pk) {
-		return bookDao.findById(pk);
+	public Optional<Book> getBook(Integer id) {
+		return bookDao.findById(id);
 	}
 
 	@Override
-	public void delete(Integer pk) {
-		bookDao.deleteById(pk);
+	public boolean delete(Integer id) {
+		boolean flag = false;
+		try {
+			bookDao.deleteById(id);
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 	@Override
-	public Book saveOrUpdate(Book book) {
+	public Book save(Book book) {
 		return bookDao.save(book);
+	}
+	
+	//書本狀態改成借出
+	@Override
+	public void updateStatusById(Integer id) {
+		try {
+			bookDao.updateStatusById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//書本狀態改成上架
+	@Override
+	public void updateStatus2ById(Integer id) {
+		try {
+			bookDao.updateStatus2ById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
