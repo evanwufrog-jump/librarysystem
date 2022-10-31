@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import tw.com.de.librarysystem.entity.impl.BookNo;
 @Repository
 public interface BookNoDao extends JpaRepository<BookNo, Integer>{
-
+	
 }

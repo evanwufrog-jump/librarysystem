@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 
 import tw.com.de.librarysystem.entity.impl.Member;
 @Repository
-public interface MemberDao extends JpaRepository<Member, Integer>{
+public interface MemberDao extends JpaRepository<Member, String>{
+
+	Member findByMemNo(String memNo);
 
 }

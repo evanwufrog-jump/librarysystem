@@ -37,7 +37,7 @@ public class Book implements Serializable {
 	private Date postStart;
 	
 	private String isbn;
-	private String desecription;
+	private String description;
 	private Integer day;
 	
 	@OneToMany
@@ -138,11 +138,11 @@ public class Book implements Serializable {
 	}
 
 	public String getDesecription() {
-		return desecription;
+		return description;
 	}
 
 	public void setDesecription(String desecription) {
-		this.desecription = desecription;
+		this.description = desecription;
 	}
 
 	public Integer getDay() {
