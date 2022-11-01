@@ -1,6 +1,7 @@
 package tw.com.de.librarysystem.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,15 @@ public class MemberService {
 	@Autowired
 	MemberDao memberDao;
 	
-	public List<Member> findMemberAll(){
+	public List<Member> findAll(){
 		return memberDao.findAll();
 	}
 	
-//	public Member findByMemNo(String memNo){
-//		return memberDao.findByMemNo("memNo");		
-//	}
+	public Optional<Member> findByMemNo(String memNo){
+		return memberDao.findById(memNo);
+	}
+
+
 
 
 }
