@@ -1,13 +1,6 @@
 package tw.com.de.librarysystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-<<<<<<< HEAD
-import org.springframework.stereotype.Repository;
 
-import tw.com.de.librarysystem.entity.impl.BookNo;
-@Repository
-public interface BookNoRepository extends JpaRepository<BookNo, Integer>{
-
-=======
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -40,5 +33,4 @@ public interface BookNoRepository extends JpaRepository<BookNo, Integer>{
 	
 	
 
->>>>>>> DT
 }
