@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import tw.com.de.librarysystem.entity.impl.Advice;
 @Repository
-public interface AdviceDao extends JpaRepository<Advice, Integer> {
+public interface AdviceRepository extends JpaRepository<Advice, Integer> {
 
 }

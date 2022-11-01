@@ -6,24 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.repository.MemberDao;
+import tw.com.de.librarysystem.repository.MemberRepository;
 import tw.com.de.librarysystem.entity.impl.Member;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
-	MemberDao memberDao;
-	
+	MemberRepository memberRepository;
+
 	public List<Member> findAll(){
-		return memberDao.findAll();
+		return memberRepository.findAll();
 	}
-	
+
+	public Member findMemberByEmail(String email){return memberRepository.findByEmail(email);};
+
 	public Optional<Member> findByMemNo(String memNo){
-		return memberDao.findById(memNo);
+		return memberRepository.findById(memNo);
 	}
-
-
-
-
 }
+
+
