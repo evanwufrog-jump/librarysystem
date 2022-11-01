@@ -14,13 +14,13 @@ public class Member {
 	private String password;
 	private String permission;
 	private String email;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<Advice> advices;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<Reservation> reservations;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<Record> records;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<LendingList> lendingLists;
 
 	public String getMemNO() {
