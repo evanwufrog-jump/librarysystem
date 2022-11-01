@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduledTasks {
 	
-	@Scheduled( cron = "10 * * * * ?", zone = "Asia/Taipei")
-	public void test() {
-		System.out.println(new Date());
-	}
+//	@Scheduled( cron = "10 * * * * ?", zone = "Asia/Taipei")
+//	public void test() {
+//		System.out.println(new Date());
+//	}
 
 }
