@@ -18,9 +18,17 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 
+	@GetMapping("/bookSearch")
 	public void bookSearch(String title, String author, String technology) {
 		System.out.println("條件查詢成功");
 		bookService.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author, technology);
+	}
+
+	@GetMapping("/bookSearch2")
+	public void bookSearch2(String title) {
+		System.out.println("單條件查詢成功");
+		bookService.findByTitleContaining(title);
+		System.out.println(bookService.findByTitleContaining(title));
 	}
 
 	@GetMapping("/book")
@@ -48,7 +56,7 @@ public class BookController {
 		System.out.println("狀態(借出)修改成功");
 		bookService.updateStatusById(id);
 	}
-	
+
 	@GetMapping("/updateStatus2ById/{id}")
 	public void updateStatus2ById(@PathVariable("id") Integer id) {
 		System.out.println("狀態(上架)修改成功");

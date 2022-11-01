@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.repository.BookDao;
+import tw.com.de.librarysystem.repository.BookRepository;
 import tw.com.de.librarysystem.service.BookService;
 
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {
 	@Autowired
-	private BookDao bookDao;
+	private BookRepository bookRepository;
 
 	public BookServiceImpl() {
 	}
@@ -23,24 +23,24 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
 			String technology) {
-		return bookDao.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author, technology);
+		return bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author, technology);
 	}
 
 	@Override
 	public List<Book> findAll() {
-		return bookDao.findAll();
+		return bookRepository.findAll();
 	}
 
 	@Override
 	public Optional<Book> getBook(Integer id) {
-		return bookDao.findById(id);
+		return bookRepository.findById(id);
 	}
 
 	@Override
 	public boolean delete(Integer id) {
 		boolean flag = false;
 		try {
-			bookDao.deleteById(id);
+			bookRepository.deleteById(id);
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,14 +50,14 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book save(Book book) {
-		return bookDao.save(book);
+		return bookRepository.save(book);
 	}
 	
 	//書本狀態改成借出
 	@Override
 	public void updateStatusById(Integer id) {
 		try {
-			bookDao.updateStatusById(id);
+			bookRepository.updateStatusById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,10 +67,15 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void updateStatus2ById(Integer id) {
 		try {
-			bookDao.updateStatus2ById(id);
+			bookRepository.updateStatus2ById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Book> findByTitleContaining(String title) {
+		return bookRepository.findByTitleContaining(title);
 	}
 
 }

@@ -9,16 +9,18 @@ import org.springframework.stereotype.Repository;
 
 import tw.com.de.librarysystem.entity.impl.Book;
 @Repository
-public interface BookDao extends JpaRepository<tw.com.de.librarysystem.entity.impl.Book, Integer>{
+public interface BookRepository extends JpaRepository<tw.com.de.librarysystem.entity.impl.Book, Integer>{
 //	書名、作者、書本技術分類模糊查詢
 	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
 			String technology);
 	
 	@Modifying
 	@Query("update Book b set b.status = '借出' where b.id = :id")
-	void updateStatusById(@Param("id")Integer id);
+	Integer updateStatusById(@Param("id")Integer id);
 	
 	@Modifying
 	@Query("update Book b set b.status = '上架' where b.id = :id")
 	void updateStatus2ById(@Param("id")Integer id);
+	
+	List<Book> findByTitleContaining(String title);
 }

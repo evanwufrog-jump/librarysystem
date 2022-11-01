@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @SuppressWarnings("serial")
 @Entity
@@ -30,11 +33,14 @@ public class Book implements Serializable {
 	private String publisher;
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	private Date publishDate;
-
+	@NotNull
 	private String status = "上架";
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date postStart = new Date();
 
 	private String isbn;
