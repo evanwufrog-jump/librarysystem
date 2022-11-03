@@ -143,6 +143,7 @@ public class Book implements Serializable {
 		this.isbn = isbn;
 	}
 
+
 	public String getDescription() {
 		return description;
 	}
@@ -150,6 +151,8 @@ public class Book implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
 
 	public Integer getDay() {
 		return day;
