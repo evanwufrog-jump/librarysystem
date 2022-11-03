@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Reservation {
 	@Id
@@ -16,9 +18,11 @@ public class Reservation {
 	private Integer id;
 	@ManyToOne
 	@JoinColumn
+	@JsonBackReference
 	private Book book;
 	@ManyToOne
 	@JoinColumn
+	@JsonBackReference
 	private Member member;
 	private String status;
 	

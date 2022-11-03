@@ -6,6 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Member {
 	@Id
@@ -17,6 +19,7 @@ public class Member {
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<Advice> advices;
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
+	@JsonManagedReference
 	private Set<Reservation> reservations;
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
 	private Set<Record> records;
