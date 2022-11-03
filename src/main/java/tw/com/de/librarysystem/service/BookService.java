@@ -23,6 +23,8 @@ public interface BookService {
 
 	void updateStatus2ById(@Param("id") Integer id);
 
+	void updateStatus3ById(@Param("id") Integer id);
+
 	List<Book> findByTitleContaining(String title);
 
 }

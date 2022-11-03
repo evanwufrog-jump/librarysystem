@@ -73,6 +73,16 @@ public class BookServiceImpl implements BookService {
 		}
 	}
 
+	// 書本狀態改成預約中
+	@Override
+	public void updateStatus3ById(Integer id) {
+		try {
+			bookRepository.updateStatus3ById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public List<Book> findByTitleContaining(String title) {
 		return bookRepository.findByTitleContaining(title);

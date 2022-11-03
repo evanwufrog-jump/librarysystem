@@ -16,11 +16,15 @@ public interface BookRepository extends JpaRepository<tw.com.de.librarysystem.en
 	
 	@Modifying
 	@Query("update Book b set b.status = '借出' where b.id = :id")
-	Integer updateStatusById(@Param("id")Integer id);
+	void updateStatusById(@Param("id")Integer id);
 	
 	@Modifying
 	@Query("update Book b set b.status = '上架' where b.id = :id")
 	void updateStatus2ById(@Param("id")Integer id);
+	
+	@Modifying
+	@Query("update Book b set b.status = '預約中' where b.id = :id")
+	void updateStatus3ById(@Param("id")Integer id);
 	
 	List<Book> findByTitleContaining(String title);
 }

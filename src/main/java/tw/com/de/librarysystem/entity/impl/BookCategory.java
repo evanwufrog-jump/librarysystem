@@ -32,4 +32,10 @@ public class BookCategory implements Serializable {
 		this.category = category;
 	}
 
+	@Override
+	public String toString() {
+		return "BookCategory [id=" + id + ", category=" + category + "]";
+	}
+
+
 }

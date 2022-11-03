@@ -1,15 +1,19 @@
 package tw.com.de.librarysystem.entity.impl;
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@SuppressWarnings("serial")
 @Entity
-public class BookPic {
+public class BookPic implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String bookId;
+	private Integer bookId;
 	private String picture;
 
 	public Integer getId() {
@@ -20,11 +24,11 @@ public class BookPic {
 		this.id = id;
 	}
 
-	public String getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(String bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 
@@ -36,5 +40,9 @@ public class BookPic {
 		this.picture = picture;
 	}
 
+	@Override
+	public String toString() {
+		return "BookPic [id=" + id + ", bookId=" + bookId + ", picture=" + picture + "]";
+	}
 
 }
