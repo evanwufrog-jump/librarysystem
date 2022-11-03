@@ -11,7 +11,6 @@ import tw.com.de.librarysystem.entity.impl.Member;
 
 @Service
 public class MemberService {
-
 	@Autowired
 	MemberRepository memberRepository;
 
