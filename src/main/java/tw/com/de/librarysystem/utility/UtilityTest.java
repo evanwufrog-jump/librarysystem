@@ -1,7 +1,9 @@
 package tw.com.de.librarysystem.utility;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -9,7 +11,13 @@ import java.util.stream.Collectors;
 public class UtilityTest {
 	
 	public static void main(String[] args) {
-		
+		int year = new Date().getYear();
+		System.out.println(year + 1900);
+		LocalDate currentDate = LocalDate.now();
+		int currentYear = currentDate.getYear();
+		int thisYear = LocalDate.now().getYear();
+		System.out.println(thisYear);
+		/*
 		List<String> strings = Arrays.asList("小狗", "", "小貓", "小豬", "小鳥","");
 		// 獲取非空字串數量
 		long animalCount = strings.stream().filter(string -> !string.isEmpty()).count();
@@ -36,6 +44,7 @@ public class UtilityTest {
 //		System.out.println(list[0]);
 //		array.stream
 		//[1, 2, 3].forEach()
+		 */
 	}
 
 }
