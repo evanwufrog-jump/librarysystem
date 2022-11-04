@@ -1,6 +1,8 @@
 package tw.com.de.librarysystem.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +27,38 @@ public class RecordController {
 	
 	@GetMapping(value = "/findAllData")
 	public List<Record> findAllDataHandler() {
-		List<Record> list =  recordService.findAll();
-		if (list != null) {
-			return list;
-			
-		} else {
+		
+		try {
+			List<Record> list =  recordService.findAll();
+			return list;			
+		} catch (Exception e) {
 			return null;
 		}
+////		Map<String, List<Record>> map = new HashMap<>();
+//		if (list != null) {
+//			list.forEach(record -> System.err.println(record.getMember().getMemNO()));
+//			return (Map<String, List<Record>>) map.put("data", list);//再確認是否要map
+////			return list;
+//			
+//		} else {
+//			return null;
+//		}
 	}
+	
+//	@GetMapping(value = "/findAllData")
+//	public Map<String, List<Record>> findAllDataHandler() {
+////	public List<Record> findAllDataHandler() {
+//		List<Record> list =  recordService.findAll();
+//		Map<String, List<Record>> map = new HashMap<>();
+//		if (list != null) {
+//			list.forEach(record -> System.err.println(record.getMember().getMemNO()));
+//			return (Map<String, List<Record>>) map.put("data", list);//再確認是否要map
+////			return list;
+//			
+//		} else {
+//			return null;
+//		}
+//	}
 	
 	@PostMapping(value = "/update")
 	public Integer updateNumberHandler(Record record) {

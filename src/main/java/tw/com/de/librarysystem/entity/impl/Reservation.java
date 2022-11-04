@@ -36,8 +36,9 @@ public class Reservation implements Serializable {
 	private Book book;
 	@ManyToOne
 	@JoinColumn
-	@JsonBackReference
 //	@JsonIgnoreProperties({"reservation"})
+	@JsonManagedReference
+//	@JsonBackReference
 	private Member member;
 	private String status;
 	
