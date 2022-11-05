@@ -1,18 +1,44 @@
 package tw.com.de.librarysystem.entity.impl;
-import java.util.Date;
+import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
-public class LendingList {
+public class LendingList implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private Integer bookId;
+	private String memNo;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getBookId() {
+		return bookId;
+	}
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+	public String getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
+	}
+	
+	
+	
+
+}
+/*@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@OneToOne
@@ -26,35 +52,4 @@ public class LendingList {
 	private Date lendingDate;
 	@Column(columnDefinition = "Date")
 	private Date expiryDate;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Book getBook() {
-		return book;
-	}
-	public void setBook(Book book) {
-		this.book = book;
-	}
-	public Member getMember() {
-		return member;
-	}
-	public void setMember(Member member) {
-		this.member = member;
-	}
-	public Date getLendingDate() {
-		return lendingDate;
-	}
-	public void setLendingDate(Date lendingDate) {
-		this.lendingDate = lendingDate;
-	}
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-	
-}
+	*/

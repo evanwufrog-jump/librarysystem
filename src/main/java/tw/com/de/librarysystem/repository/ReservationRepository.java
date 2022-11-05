@@ -6,21 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import tw.com.de.librarysystem.entity.ReservationTest;
 import tw.com.de.librarysystem.entity.impl.Book;
 import tw.com.de.librarysystem.entity.impl.Member;
 import tw.com.de.librarysystem.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.dto.ReservationDto;
 
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
-	
-//	// 新增
-//	
-//	// 修改
-//	
-//	// 刪除
-//	
-//	// 修改
+	/*
 	public List<Reservation> findByBook(Book book);
 //	public List<Reservation> findByBookLikeTitleList(Book book);
 	
@@ -43,4 +38,23 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 //	
 //	public Optional<Reservation> findById(Integer id);
 
+	*/
+	@Query(nativeQuery = true, 
+			value = "select "
+					+ " r.id , r.`date` , b.author , b.isbn , b.technology , bc.category "
+					+ "from reservation r "
+					+ "left join book b "
+					+ "on r.book_id = b.id "
+					+ "left join book_category bc "
+					+ "on b.bookcategory_id = bc.id ")
+	public List<ReservationTest> findAList();
+
 }
+/**
+ * value = "select r.id , r.`date` , b.author , b.isbn , b.technology , bc.category "
+					+ "from reservation r "
+					+ "left join book b "
+					+ "on r.book_id = b.id "
+					+ "left join book_category bc "
+					+ "on b.bookcategory_id = bc.id ")/
+ */

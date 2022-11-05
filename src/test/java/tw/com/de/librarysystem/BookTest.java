@@ -10,8 +10,9 @@ import tw.com.de.librarysystem.service.BookService;
 public class BookTest {
 	@Autowired
 	private BookService bookService;
-@Test
-void bookTest() {
-	bookService.findAll();
-}
+
+//	@Test
+//	void bookTest() {
+//		bookService.findAll();
+//	}
 }

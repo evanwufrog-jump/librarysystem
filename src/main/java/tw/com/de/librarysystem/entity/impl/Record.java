@@ -1,4 +1,5 @@
 package tw.com.de.librarysystem.entity.impl;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -10,25 +11,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Record {
+public class Record implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@ManyToOne
-	@JoinColumn
-	private Book book;
-	@ManyToOne
-	@JoinColumn
-	private Member member;
+	private Integer bookNo;
+	private String memNo;
 	@Column(columnDefinition = "Date")
 	private LocalDate lendingDate;
 	@Column(columnDefinition = "Date")
 	private LocalDate returnDate;
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getBookNo() {
+		return bookNo;
+	}
+	public void setBookNo(Integer bookNo) {
+		this.bookNo = bookNo;
+	}
+	public String getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(String memNo) {
+		this.memNo = memNo;
 	}
 	public LocalDate getLendingDate() {
 		return lendingDate;
@@ -42,17 +53,22 @@ public class Record {
 	public void setReturnDate(LocalDate returnDate) {
 		this.returnDate = returnDate;
 	}
-	public Book getBook() {
-		return book;
-	}
-	public void setBook(Book book) {
-		this.book = book;
-	}
-	public Member getMember() {
-		return member;
-	}
-	public void setMember(Member member) {
-		this.member = member;
-	}
 	
+	
+
 }
+/*
+ * @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@ManyToOne
+	@JoinColumn
+	private Book book;
+	@ManyToOne
+	@JoinColumn
+	private Member member;
+	@Column(columnDefinition = "Date")
+	private LocalDate lendingDate;
+	@Column(columnDefinition = "Date")
+	private LocalDate returnDate;
+	*/

@@ -13,6 +13,7 @@ import tw.com.de.librarysystem.service.LendingListService;
 
 @Service
 public class LendingListServiceImpl implements LendingListService {
+	/*
 
 	@Autowired
 	LendingListRepository lendingListRepository;
@@ -50,5 +51,5 @@ public class LendingListServiceImpl implements LendingListService {
 			return 0;
 		}
 	}
-
+*/
 }

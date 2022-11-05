@@ -14,6 +14,7 @@ import tw.com.de.librarysystem.service.BookService;
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {
+	/*
 	@Autowired
 	private BookRepository bookRepository;
 
@@ -78,4 +79,5 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findByTitleContaining(title);
 	}
 
+*/
 }

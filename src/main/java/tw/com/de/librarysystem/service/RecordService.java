@@ -7,7 +7,7 @@ import tw.com.de.librarysystem.entity.impl.Member;
 import tw.com.de.librarysystem.entity.impl.Record;
 
 public interface RecordService {
-	
+	/*
 	public Integer insert(Record record);
 	
 	public void delete(Record record);
@@ -31,6 +31,6 @@ public interface RecordService {
 	public List<Record> findByBookNo(Integer id);
 //	
 //	public List<Record> findByBookNoLike(Integer bookNo);
-	
+*/	
 
 }

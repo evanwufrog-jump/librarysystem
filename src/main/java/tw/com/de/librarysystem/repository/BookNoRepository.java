@@ -11,6 +11,7 @@ import tw.com.de.librarysystem.entity.impl.BookNo;
 @Repository
 public interface BookNoRepository extends JpaRepository<BookNo, Integer>{
 
+
 	@Query(
 			nativeQuery = true,
 			value ="select * from BOOK_NO where year = :year ")
@@ -30,7 +31,7 @@ public interface BookNoRepository extends JpaRepository<BookNo, Integer>{
 	BookNo findBById(Integer id);
 	
 //	List<BookNo> findByYear(Integer year);
-	
+
 	
 
 }

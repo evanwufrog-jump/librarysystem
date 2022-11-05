@@ -35,6 +35,4 @@ public class BookPic {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
-
 }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import tw.com.de.librarysystem.entity.impl.Book;
 
 public interface BookService {
+	/*
 	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
 			String technology);
 
@@ -24,4 +25,5 @@ public interface BookService {
 	void updateStatus2ById(@Param("id")Integer id);
 	
 	List<Book> findByTitleContaining(String title);
+	*/
 }

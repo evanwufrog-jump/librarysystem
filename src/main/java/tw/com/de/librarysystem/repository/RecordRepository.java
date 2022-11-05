@@ -11,7 +11,7 @@ import tw.com.de.librarysystem.entity.impl.Record;
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Integer>{
 
-	
+/*
 	List<Record> findByBook(Book book);
 	
 	List<Record> findByMember(Member member);
@@ -22,5 +22,6 @@ public interface RecordRepository extends JpaRepository<Record, Integer>{
 //					+ "on b.BOOK_ID = r.BOOK_ID "
 //					+ "where TITLE like :title ")
 //	List<Record> findByTitleLike(String title);
+ * */	
 	
 }

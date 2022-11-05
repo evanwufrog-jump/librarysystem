@@ -2,11 +2,16 @@ package tw.com.de.librarysystem.service;
 
 import java.util.List;
 
+import tw.com.de.librarysystem.entity.ReservationTest;
 import tw.com.de.librarysystem.entity.impl.Member;
 import tw.com.de.librarysystem.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.dto.ReservationDto;
 
 public interface ReservationService {
 	
+	public List<ReservationTest> findAll();
+	
+	/*
 	public Integer insert(Reservation reservation);
 	
 	public Integer update(Reservation reservation);
@@ -28,5 +33,5 @@ public interface ReservationService {
 	public List<Reservation> findAllByMember(Member member);
 //	
 //	public List<Reservation> getAllByBookYear(Integer year);
-
+	 * */
 }

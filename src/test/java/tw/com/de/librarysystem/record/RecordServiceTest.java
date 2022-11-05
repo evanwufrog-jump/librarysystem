@@ -83,7 +83,7 @@ public class RecordServiceTest {
 		List<Record> list = recordService.findByTitleLike("v");
 		System.err.println(list.size());
 	}
-	*/
+	
 	// null無法列印
 	@Test
 	void findByBookNo() {
@@ -106,7 +106,7 @@ public class RecordServiceTest {
 		list.addAll(list1);
 		System.out.println(list);
 	}
-	
+*/	
 	
 	
 

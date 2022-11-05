@@ -6,7 +6,7 @@ import java.util.Optional;
 import tw.com.de.librarysystem.entity.impl.BookNo;
 
 public interface BookNoServiceTest {
-	
+/*	
 	public String insert(BookNo bookNo);
 	
 	public String delete(Integer id);
@@ -28,6 +28,6 @@ public interface BookNoServiceTest {
 	
 	
 //	public BookNo findById(Integer id);
-	
+*/	
 
 }

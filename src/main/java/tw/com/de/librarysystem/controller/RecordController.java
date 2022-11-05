@@ -22,6 +22,7 @@ import tw.com.de.librarysystem.service.ReservationService;
 @RequestMapping(value = "/record")
 public class RecordController {
 	
+	/*
 	@Autowired
 	RecordService recordService;
 	
@@ -77,7 +78,7 @@ public class RecordController {
 		//沒有判斷是否有
 		return recordService.findByTitleLike(title);
 	}
-	
+*/	
 
 
 

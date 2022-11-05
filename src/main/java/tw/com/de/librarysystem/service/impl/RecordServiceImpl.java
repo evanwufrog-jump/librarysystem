@@ -21,7 +21,7 @@ import tw.com.de.librarysystem.service.RecordService;
 
 @Service
 public class RecordServiceImpl implements RecordService {
-
+/*
 	@Autowired
 	RecordRepository recordRepository;
 	
@@ -145,4 +145,5 @@ public class RecordServiceImpl implements RecordService {
 			return null;
 		}
 	}
+	*/
 }

@@ -8,9 +8,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.com.de.librarysystem.entity.ReservationTest;
 import tw.com.de.librarysystem.entity.impl.Book;
 import tw.com.de.librarysystem.entity.impl.Member;
 import tw.com.de.librarysystem.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.dto.ReservationDto;
 import tw.com.de.librarysystem.repository.BookRepository;
 import tw.com.de.librarysystem.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.ReservationService;
@@ -20,12 +22,22 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired	
 	ReservationRepository reservationRepository;
+
+	@Override
+	public List<ReservationTest> findAll() {
+		System.err.println("service start");
+		List<ReservationTest> list = reservationRepository.findAList();
+		System.err.println("service end");
+		return list;
+//		return reservationRepository.findAList();
+	}
 	
 	
 	
 //	@Autowired
 //	BookRepository bookRepository;
 
+	/*
 	@Transactional
 	@Override
 	public Integer insert(Reservation reservation) {
@@ -84,7 +96,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		}
 		return 1;
-		*/
+		
 		
 	}
 
@@ -126,5 +138,6 @@ public class ReservationServiceImpl implements ReservationService {
 			return null;
 		}
 	}
+	*/
 
 }

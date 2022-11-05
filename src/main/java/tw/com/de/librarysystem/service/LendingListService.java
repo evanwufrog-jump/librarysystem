@@ -6,7 +6,7 @@ import tw.com.de.librarysystem.entity.impl.LendingList;
 import tw.com.de.librarysystem.entity.impl.Member;
 
 public interface LendingListService {
-	
+	/*
 	public Integer insert(LendingList lendingList);
 	
 	public Integer updeate(LendingList lendingList);
@@ -24,6 +24,6 @@ public interface LendingListService {
 //	public LendingList findByBookNo(Integer bookNo);
 //	
 //	public LendingList findByTitle(String title);
-	
+	*/
 
 }
