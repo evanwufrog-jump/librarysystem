@@ -23,13 +23,23 @@ public class ReservationController {
 	
 	@GetMapping(value = "/findAllData")
 	public List<Reservation> findAllDataHandler() {
-		List<Reservation> list =  reservationService.findAll();
-		if (list != null) {
-			return list;
-			
-		} else {
+		
+		try {
+			return reservationService.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
 			return null;
 		}
+		
+//		List<Reservation> list =  reservationService.findAll();
+//		System.err.println(list.get(0).getBook().getAuthor() + "<=====================");
+////		System.err.println(list.get(0).getBook().getReservations() + "<=====================");
+//		if (list != null) {
+//			return list;
+//			
+//		} else {
+//			return null;
+//		}
 	}
 	
 	@PostMapping(value = "/updateNumber")

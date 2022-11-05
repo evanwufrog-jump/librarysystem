@@ -13,14 +13,8 @@ import tw.com.de.librarysystem.entity.impl.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
-	
-//	// 新增
-//	
-//	// 修改
-//	
-//	// 刪除
-//	
-//	// 修改
+
+
 	public List<Reservation> findByBook(Book book);
 //	public List<Reservation> findByBookLikeTitleList(Book book);
 	
@@ -34,6 +28,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 //	public List<Reservation> findByMemberLikeList(Member member);
 	public List<Reservation> findByMember(Member member);
 	
+	
 //	@Query(nativeQuery = true,
 //			value =" " )
 //	public List<Reservation> findByMemberLike(String name);
@@ -43,4 +38,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 //	
 //	public Optional<Reservation> findById(Integer id);
 
+	@Override
+	@Query(nativeQuery = true,
+//	value = "select * "
+	value = "select "
+			+ "r.id , r.`date` , r.status , r.book_id , r.member_memno , b.* "
+//			+ "b.id , b.author , b.`day` , b.desecription , b.isbn , b.post_start , "
+//			+ "b.publish_date , b.publisher , b.status , b.technology , b.title , b.bookcategory_id , b.description  "
+			+ "from de_library_system.reservation r "
+			+ "left join de_library_system.book b "
+			+ "on r.book_id = b.id; ")
+	public List<Reservation> findAll();
+	
 }
