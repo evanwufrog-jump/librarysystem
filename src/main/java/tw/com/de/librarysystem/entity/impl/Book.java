@@ -55,7 +55,6 @@ public class Book implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	private Set<Advice> advices;
-	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	@JsonManagedReference
 	private Set<Reservation> reservations;
