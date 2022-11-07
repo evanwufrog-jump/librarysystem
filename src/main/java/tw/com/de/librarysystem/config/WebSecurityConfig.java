@@ -18,6 +18,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //不寫session了(不確定是否為影響其他人功能)
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //加入權限驗證filter
-        http.addFilterBefore(new AuthorizationCheckFilter(), BasicAuthenticationFilter.class);
+//        http.addFilterBefore(new AuthorizationCheckFilter(), BasicAuthenticationFilter.class);
     }
 }
