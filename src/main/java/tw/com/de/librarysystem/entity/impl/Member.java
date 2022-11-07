@@ -1,17 +1,12 @@
 package tw.com.de.librarysystem.entity.impl;
+
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Member implements Serializable{
+public class Member implements Serializable {
 	/**
 	 * 
 	 */
@@ -22,16 +17,16 @@ public class Member implements Serializable{
 	private String password;
 	private String permission;
 	private String email;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-	private Set<Advice> advices;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-	@JsonManagedReference
-//	@JsonBackReference
-	private Set<Reservation> reservations;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-	private Set<Record> records;
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-	private Set<LendingList> lendingLists;
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+//	private Set<Advice> advices;
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+//	@JsonManagedReference
+////	@JsonBackReference
+//	private Set<Reservation> reservations;
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+//	private Set<Record> records;
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+//	private Set<LendingList> lendingLists;
 
 	public String getMemNO() {
 		return memNO;
@@ -57,7 +52,6 @@ public class Member implements Serializable{
 		this.password = password;
 	}
 
-
 	public String getPermission() {
 		return permission;
 	}
@@ -74,36 +68,4 @@ public class Member implements Serializable{
 		this.email = email;
 	}
 
-	public Set<Advice> getAdvices() {
-		return advices;
-	}
-
-	public void setAdvices(Set<Advice> advices) {
-		this.advices = advices;
-	}
-
-	public Set<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(Set<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
-	public Set<Record> getRecords() {
-		return records;
-	}
-
-	public void setRecords(Set<Record> records) {
-		this.records = records;
-	}
-
-	public Set<LendingList> getLendingLists() {
-		return lendingLists;
-	}
-
-	public void setLendingLists(Set<LendingList> lendingLists) {
-		this.lendingLists = lendingLists;
-	}
-	
 }

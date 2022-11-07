@@ -9,21 +9,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Record {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "BOOK_ID")
 	private Book book;
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "MEMBER_MEMNO")
 	private Member member;
 	@Column(columnDefinition = "Date")
 	private LocalDate lendingDate;
 	@Column(columnDefinition = "Date")
 	private LocalDate returnDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate LendingCheckedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate returnCheckedDate;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,6 +60,24 @@ public class Record {
 	}
 	public void setMember(Member member) {
 		this.member = member;
+	}
+	public LocalDate getLendingCheckedDate() {
+		return LendingCheckedDate;
+	}
+	public void setLendingCheckedDate(LocalDate lendingCheckedDate) {
+		LendingCheckedDate = lendingCheckedDate;
+	}
+	public LocalDate getReturnCheckedDate() {
+		return returnCheckedDate;
+	}
+	public void setReturnCheckedDate(LocalDate returnCheckedDate) {
+		this.returnCheckedDate = returnCheckedDate;
+	}
+	@Override
+	public String toString() {
+		return "Record [id=" + id + ", book=" + book + ", member=" + member + ", lendingDate=" + lendingDate
+				+ ", returnDate=" + returnDate + ", LendingCheckedDate=" + LendingCheckedDate + ", returnCheckedDate="
+				+ returnCheckedDate + "]";
 	}
 	
 }

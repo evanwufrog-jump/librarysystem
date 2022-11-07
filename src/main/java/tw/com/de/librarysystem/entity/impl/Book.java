@@ -2,23 +2,16 @@ package tw.com.de.librarysystem.entity.impl;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 @SuppressWarnings("serial")
 @Entity
@@ -48,22 +41,22 @@ public class Book implements Serializable {
 	private String isbn;
 	private String description;
 	private Integer day;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bookId")
-	private Set<BookPic> bookPics;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-	private Set<Advice> advices;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-	@JsonManagedReference
-	private Set<Reservation> reservations;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-	private Set<Record> records;
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "book")
-	private LendingList lendingList;
+	private String reservationStatus;
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "bookId")
+//	private Set<BookPic> bookPics;
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+//	private Set<Advice> advices;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+//	@JsonManagedReference
+//	private Set<Reservation> reservations;
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+//	private Set<Record> records;
+//
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "book")
+//	private LendingList lendingList;
 
 	public Integer getId() {
 		return id;
@@ -145,7 +138,6 @@ public class Book implements Serializable {
 		this.isbn = isbn;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
@@ -153,8 +145,6 @@ public class Book implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 	public Integer getDay() {
 		return day;
@@ -164,44 +154,12 @@ public class Book implements Serializable {
 		this.day = day;
 	}
 
-	public Set<BookPic> getBookPics() {
-		return bookPics;
+	public String getReservationStatus() {
+		return reservationStatus;
 	}
 
-	public void setBookPics(Set<BookPic> bookPics) {
-		this.bookPics = bookPics;
-	}
-
-	public Set<Advice> getAdvices() {
-		return advices;
-	}
-
-	public void setAdvices(Set<Advice> advices) {
-		this.advices = advices;
-	}
-
-	public Set<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(Set<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
-	public Set<Record> getRecords() {
-		return records;
-	}
-
-	public void setRecords(Set<Record> records) {
-		this.records = records;
-	}
-
-	public LendingList getLendingList() {
-		return lendingList;
-	}
-
-	public void setLendingList(LendingList lendingList) {
-		this.lendingList = lendingList;
+	public void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 
 	@Override
@@ -209,8 +167,8 @@ public class Book implements Serializable {
 		return "Book [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author=" + author
 				+ ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
 				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
-				+ ", day=" + day + ", bookPics=" + bookPics + ", advices=" + advices + ", reservations=" + reservations
-				+ ", records=" + records + ", lendingList=" + lendingList + "]";
+				+ ", day=" + day + ", reservationStatus=" + reservationStatus + "]";
 	}
+
 
 }
