@@ -41,7 +41,7 @@ public class Reservation implements Serializable {
 	@JsonManagedReference
 //	@JsonBackReference
 	private Member member;
-	private String status;
+//	private String status;
 
 //	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -71,14 +71,6 @@ public class Reservation implements Serializable {
 
 	public void setMember(Member member) {
 		this.member = member;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public LocalDate getDate() {
