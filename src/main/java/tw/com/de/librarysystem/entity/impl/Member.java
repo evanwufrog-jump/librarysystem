@@ -1,4 +1,5 @@
 package tw.com.de.librarysystem.entity.impl;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -6,21 +7,30 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-public class Member {
+public class Member implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String memNO;
 	private String name;
 	private String password;
 	private String permission;
 	private String email;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
 	private Set<Advice> advices;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
+	@JsonManagedReference
+//	@JsonBackReference
 	private Set<Reservation> reservations;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
 	private Set<Record> records;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
 	private Set<LendingList> lendingLists;
 
 	public String getMemNO() {

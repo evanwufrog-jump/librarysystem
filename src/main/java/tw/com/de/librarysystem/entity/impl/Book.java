@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @SuppressWarnings("serial")
 @Entity
 public class Book implements Serializable {
@@ -55,6 +57,7 @@ public class Book implements Serializable {
 	private Set<Advice> advices;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+	@JsonManagedReference
 	private Set<Reservation> reservations;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
