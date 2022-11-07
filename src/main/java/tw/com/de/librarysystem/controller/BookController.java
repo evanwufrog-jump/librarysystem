@@ -3,6 +3,7 @@ package tw.com.de.librarysystem.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,14 +36,20 @@ public class BookController {
 		return books;
 	}
 
-	@GetMapping("/bookSearch2")
-	public List<Book> bookSearch2(String title) {
+	@GetMapping("/bookSearch2/{title}")
+	public List<Book> bookSearch2(@PathVariable String title) {
 		System.out.println("單條件查詢成功");
 		List<Book> books = bookService.findByTitleContaining(title);
 		System.out.println(bookService.findByTitleContaining(title));
 		return books;
 	}
-
+	
+	@GetMapping("/bookid/{id}")
+	public Optional<Book> getBook(@PathVariable Integer id) {
+		Optional<Book> book = bookService.getBook(id);
+		return book;
+	}
+	
 	@GetMapping("/book")
 	public List<Book> findAll() {
 		System.out.println("搜尋成功");
