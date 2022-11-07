@@ -18,8 +18,10 @@ public class JsonConfig {
 	    return jsonConverter;
 	}
 
+
 //	@Bean
 //    public Hibernate5Module hibernate5Module() {
 //        return new Hibernate5Module();
 //    }
 }
+

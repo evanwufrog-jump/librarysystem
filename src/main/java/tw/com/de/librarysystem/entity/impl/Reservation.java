@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Reservation implements Serializable {
 	private static final long serialVersionUID = 1L;

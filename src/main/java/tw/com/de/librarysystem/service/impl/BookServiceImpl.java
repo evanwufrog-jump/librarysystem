@@ -52,8 +52,8 @@ public class BookServiceImpl implements BookService {
 	public Book save(Book book) {
 		return bookRepository.save(book);
 	}
-	
-	//書本狀態改成借出
+
+	// 書本狀態改成借出
 	@Override
 	public void updateStatusById(Integer id) {
 		try {
@@ -62,12 +62,22 @@ public class BookServiceImpl implements BookService {
 			e.printStackTrace();
 		}
 	}
-	
-	//書本狀態改成上架
+
+	// 書本狀態改成上架
 	@Override
 	public void updateStatus2ById(Integer id) {
 		try {
 			bookRepository.updateStatus2ById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 書本狀態改成預約中
+	@Override
+	public void updateStatus3ById(Integer id) {
+		try {
+			bookRepository.updateStatus3ById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

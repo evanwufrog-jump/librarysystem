@@ -1,9 +1,11 @@
 package tw.com.de.librarysystem.entity.impl;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -11,18 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 @SuppressWarnings("serial")
 @Entity
 public class Book implements Serializable {
 	@Id
+	@Column(name = "id")
 	private Integer id;
 	private String title;
 
@@ -34,28 +36,26 @@ public class Book implements Serializable {
 	private String technology;
 	private String publisher;
 
-	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull
-	private Date publishDate;
+	private LocalDate publishDate;
 	@NotNull
 	private String status = "上架";
 
-	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date postStart = new Date();
+	private LocalDate postStart = LocalDate.now();
 
 	private String isbn;
 	private String description;
 	private Integer day;
 
-	@OneToMany
-	@JoinColumn(name = "id")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "bookId")
 	private Set<BookPic> bookPics;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	private Set<Advice> advices;
-
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 	@JsonManagedReference
 	private Set<Reservation> reservations;
@@ -114,11 +114,11 @@ public class Book implements Serializable {
 		this.publisher = publisher;
 	}
 
-	public Date getPublishDate() {
+	public LocalDate getPublishDate() {
 		return publishDate;
 	}
 
-	public void setPublishDate(Date publishDate) {
+	public void setPublishDate(LocalDate publishDate) {
 		this.publishDate = publishDate;
 	}
 
@@ -130,11 +130,11 @@ public class Book implements Serializable {
 		this.status = status;
 	}
 
-	public Date getPostStart() {
+	public LocalDate getPostStart() {
 		return postStart;
 	}
 
-	public void setPostStart(Date postStart) {
+	public void setPostStart(LocalDate postStart) {
 		this.postStart = postStart;
 	}
 
@@ -203,6 +203,15 @@ public class Book implements Serializable {
 
 	public void setLendingList(LendingList lendingList) {
 		this.lendingList = lendingList;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author=" + author
+				+ ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
+				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
+				+ ", day=" + day + ", bookPics=" + bookPics + ", advices=" + advices + ", reservations=" + reservations
+				+ ", records=" + records + ", lendingList=" + lendingList + "]";
 	}
 
 }

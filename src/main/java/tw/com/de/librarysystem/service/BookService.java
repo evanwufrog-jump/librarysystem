@@ -14,14 +14,17 @@ public interface BookService {
 	List<Book> findAll();
 
 	Optional<Book> getBook(Integer id);
-	
+
 	boolean delete(Integer id);
-	
+
 	Book save(Book book);
-	
-	void updateStatusById(@Param("id")Integer id);
-	
-	void updateStatus2ById(@Param("id")Integer id);
-	
+
+	void updateStatusById(@Param("id") Integer id);
+
+	void updateStatus2ById(@Param("id") Integer id);
+
+	void updateStatus3ById(@Param("id") Integer id);
+
 	List<Book> findByTitleContaining(String title);
+
 }

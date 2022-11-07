@@ -1,5 +1,6 @@
 package tw.com.de.librarysystem.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public class BookNoServiceImpl implements BookNoService {
 	@Autowired
 	BookNoRepository bookNoDao;
 
+	Integer year = LocalDate.now().getYear();
 	public Integer getBookNoByYear(Integer year) {
 		Integer number;
 		BookNo bookNo = bookNoDao.findBookNoByYear(year);
