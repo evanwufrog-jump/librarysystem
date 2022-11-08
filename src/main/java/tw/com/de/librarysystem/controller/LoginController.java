@@ -8,10 +8,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import tw.com.de.librarysystem.entity.impl.Member;
-import tw.com.de.librarysystem.service.MemberService;
+import tw.com.de.librarysystem.service.impl.MemberServiceImpl;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +18,7 @@ import java.util.Map;
 public class LoginController {
 
 	@Autowired
-	MemberService memberService;
+	MemberServiceImpl memberService;
 
 	//如果登入成功，會取得jwt，前端存入cookie，若登入失敗則收到fail
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
