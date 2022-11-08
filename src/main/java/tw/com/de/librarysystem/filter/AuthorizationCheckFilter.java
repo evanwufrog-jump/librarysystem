@@ -17,9 +17,10 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 //此filter註冊於config/WebSecurityConfig
 public class AuthorizationCheckFilter extends OncePerRequestFilter {
-
+//檢查授權???
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //如果不是登入就攔截
@@ -34,9 +35,10 @@ public class AuthorizationCheckFilter extends OncePerRequestFilter {
                     String token = authorHeader.substring(bearer.length());
                     Claims claims = Jwts.parser().setSigningKey("libsysKey")
                             .parseClaimsJws(token).getBody();
-                    System.out.println("JWT payload:"+claims.toString());
+
+
                     filterChain.doFilter(request, response);
-                    System.out.println("授權成功");
+
 
                 }catch(Exception e){
                     System.err.println("Error : "+e);
