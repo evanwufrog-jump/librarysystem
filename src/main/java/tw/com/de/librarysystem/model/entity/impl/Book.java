@@ -2,6 +2,7 @@ package tw.com.de.librarysystem.model.entity.impl;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,10 +44,10 @@ public class Book implements Serializable {
 	private String description;
 	private Integer day;
 	private String reservationStatus;
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "bookId")
-//	private Set<BookPic> bookPics;
-//
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "BookId")
+	private Set<BookPic> bookPics;
+
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
 //	private Set<Advice> advices;
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
@@ -162,13 +164,20 @@ public class Book implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
+	public Set<BookPic> getBookPics() {
+		return bookPics;
+	}
+
+	public void setBookPics(Set<BookPic> bookPics) {
+		this.bookPics = bookPics;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author=" + author
 				+ ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
 				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
-				+ ", day=" + day + ", reservationStatus=" + reservationStatus + "]";
+				+ ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics + "]";
 	}
-
 
 }
