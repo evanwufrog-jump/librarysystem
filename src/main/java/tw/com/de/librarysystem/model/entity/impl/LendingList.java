@@ -1,5 +1,5 @@
 package tw.com.de.librarysystem.model.entity.impl;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +23,9 @@ public class LendingList {
 	private Member member;
 	
 	@Column(columnDefinition = "Date")
-	private Date lendingDate;
+	private LocalDate lendingDate;
 	@Column(columnDefinition = "Date")
-	private Date expiryDate;
+	private LocalDate expiryDate;
 	public Integer getId() {
 		return id;
 	}
@@ -44,16 +44,16 @@ public class LendingList {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public Date getLendingDate() {
+	public LocalDate getLendingDate() {
 		return lendingDate;
 	}
-	public void setLendingDate(Date lendingDate) {
+	public void setLendingDate(LocalDate lendingDate) {
 		this.lendingDate = lendingDate;
 	}
-	public Date getExpiryDate() {
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	

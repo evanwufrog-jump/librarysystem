@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Record {
 	@Id
@@ -23,12 +25,18 @@ public class Record {
 	@JoinColumn(name = "MEMBER_MEMNO")
 	private Member member;
 	@Column(columnDefinition = "Date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate lendingDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(columnDefinition = "Date")
 	private LocalDate returnDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate LendingCheckedDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate returnCheckedDate;
 	
 	public Integer getId() {
