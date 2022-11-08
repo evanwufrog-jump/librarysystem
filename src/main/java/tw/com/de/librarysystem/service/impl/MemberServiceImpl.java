@@ -1,4 +1,4 @@
-package tw.com.de.librarysystem.service;
+package tw.com.de.librarysystem.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import tw.com.de.librarysystem.repository.MemberRepository;
 import tw.com.de.librarysystem.entity.impl.Member;
 
 @Service
-public class MemberService {
+public class MemberServiceImpl {
 	@Autowired
 	MemberRepository memberRepository;
 
