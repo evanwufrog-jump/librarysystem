@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
-import tw.com.de.librarysystem.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.service.impl.MemberServiceImpl;
 
 import java.util.Date;
