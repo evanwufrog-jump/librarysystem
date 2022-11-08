@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import tw.com.de.librarysystem.entity.impl.BookPic;
+import tw.com.de.librarysystem.model.entity.impl.BookPic;
 import tw.com.de.librarysystem.service.BookPicService;
 
 @RestController

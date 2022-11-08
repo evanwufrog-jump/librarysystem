@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.entity.impl.BookPic;
-import tw.com.de.librarysystem.repository.BookPicRepository;
+import tw.com.de.librarysystem.model.entity.impl.BookPic;
+import tw.com.de.librarysystem.model.repository.BookPicRepository;
 import tw.com.de.librarysystem.service.BookPicService;
 
 @Service

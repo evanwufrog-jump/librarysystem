@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.BeanUtils;
 
-import tw.com.de.librarysystem.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Book;
 
 public class DTO {
 

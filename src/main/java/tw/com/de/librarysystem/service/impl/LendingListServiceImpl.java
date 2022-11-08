@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.entity.impl.LendingList;
-import tw.com.de.librarysystem.repository.LendingListRepository;
+import tw.com.de.librarysystem.model.entity.impl.LendingList;
+import tw.com.de.librarysystem.model.repository.LendingListRepository;
 import tw.com.de.librarysystem.service.LendingListService;
 
 @Service

@@ -1,4 +1,4 @@
-package tw.com.de.librarysystem.entity.impl;
+package tw.com.de.librarysystem.model.entity.impl;
 import java.time.LocalDate;
 
 import javax.persistence.Column;

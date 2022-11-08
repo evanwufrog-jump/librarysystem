@@ -1,4 +1,4 @@
-package tw.com.de.librarysystem.entity.impl;
+package tw.com.de.librarysystem.model.entity.impl;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,21 +30,22 @@ public class Reservation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "BOOK_ID",
+			referencedColumnName = "ID")
 //	@JsonBackReference
 //	@JsonIgnoreProperties({"RESERVATION"})
-	@JsonManagedReference
+//	@JsonManagedReference
 	private Book book;
 	@ManyToOne
 	@JoinColumn
 //	@JsonIgnoreProperties({"reservation"})
-	@JsonManagedReference
 //	@JsonBackReference
+//	@JsonManagedReference
 	private Member member;
 //	private String status;
 
 //	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(columnDefinition = "Date")
 	private LocalDate date;

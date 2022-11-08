@@ -1,4 +1,4 @@
-package tw.com.de.librarysystem.entity.impl;
+package tw.com.de.librarysystem.model.entity.impl;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
