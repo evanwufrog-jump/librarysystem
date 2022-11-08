@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.entity.impl.Member;
-import tw.com.de.librarysystem.entity.impl.Reservation;
-import tw.com.de.librarysystem.repository.BookRepository;
-import tw.com.de.librarysystem.repository.ReservationRepository;
+import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.repository.BookRepository;
+import tw.com.de.librarysystem.model.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.BookService;
 import tw.com.de.librarysystem.service.ReservationService;
 
@@ -109,7 +109,7 @@ public class ReservationServiceTest {
 				// 有預約	
 				} else {
 					Reservation res = resList.get(0);
-					res.setStatus("11111待取書");// 待取書
+//					res.setStatus("11111待取書");// 待取書
 //					System.out.println( res.getId()+ "       " + resList.get(0).getStatus());
 					
 					reservationRepository.save(resList.get(0));// 這是dao的方法

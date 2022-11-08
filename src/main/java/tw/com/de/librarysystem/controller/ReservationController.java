@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tw.com.de.librarysystem.entity.impl.BookNo;
-import tw.com.de.librarysystem.entity.impl.Member;
-import tw.com.de.librarysystem.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.entity.impl.BookNo;
+import tw.com.de.librarysystem.model.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Reservation;
 import tw.com.de.librarysystem.service.BookNoService;
 import tw.com.de.librarysystem.service.ReservationService;
 

@@ -4,7 +4,8 @@ import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import tw.com.de.librarysystem.entity.impl.Member;
+
+import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.service.MemberService;
 
 import java.util.Date;

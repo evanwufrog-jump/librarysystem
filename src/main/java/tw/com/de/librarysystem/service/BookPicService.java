@@ -3,7 +3,7 @@ package tw.com.de.librarysystem.service;
 import java.util.List;
 import java.util.Optional;
 
-import tw.com.de.librarysystem.entity.impl.BookPic;
+import tw.com.de.librarysystem.model.entity.impl.BookPic;
 
 public interface BookPicService {
 	List<BookPic> findAll();
