@@ -1,65 +1,32 @@
-package tw.com.de.librarysystem.model.entity.impl;
+package tw.com.de.librarysystem.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @SuppressWarnings("serial")
-@Entity
-public class Book implements Serializable {
-	@Id
-	@Column(name = "id")
+public class bookDto implements Serializable {
 	private Integer id;
 	private String title;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BOOKCATEGORY_ID")
-	private BookCategory bookCategory;
+	private Integer bookCategoryId;
+	private String bookCategoryCategory;
 
 	private String author;
 	private String technology;
 	private String publisher;
-
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull
 	private LocalDate publishDate;
-	@NotNull
 	private String status = "上架";
-
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate postStart = LocalDate.now();
-
 	private String isbn;
 	private String description;
 	private Integer day;
-	@NotNull
 	private String reservationStatus;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BookId")
-	private Set<BookPic> bookPics;
-
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-//	private Set<Advice> advices;
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-//	@JsonManagedReference
-//	private Set<Reservation> reservations;
-//
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-//	private Set<Record> records;
-//
-//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "book")
-//	private LendingList lendingList;
+	private Integer bookPicId;
+	private Integer bookPicBookId;
+	private String boookPicPicture;
 
 	public Integer getId() {
 		return id;
@@ -77,12 +44,20 @@ public class Book implements Serializable {
 		this.title = title;
 	}
 
-	public BookCategory getBookCategory() {
-		return bookCategory;
+	public Integer getBookCategoryId() {
+		return bookCategoryId;
 	}
 
-	public void setBookCategory(BookCategory bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setBookCategoryId(Integer bookCategoryId) {
+		this.bookCategoryId = bookCategoryId;
+	}
+
+	public String getBookCategoryCategory() {
+		return bookCategoryCategory;
+	}
+
+	public void setBookCategoryCategory(String bookCategoryCategory) {
+		this.bookCategoryCategory = bookCategoryCategory;
 	}
 
 	public String getAuthor() {
@@ -165,20 +140,38 @@ public class Book implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public Set<BookPic> getBookPics() {
-		return bookPics;
+	public Integer getBookPicId() {
+		return bookPicId;
 	}
 
-	public void setBookPics(Set<BookPic> bookPics) {
-		this.bookPics = bookPics;
+	public void setBookPicId(Integer bookPicId) {
+		this.bookPicId = bookPicId;
+	}
+
+	public Integer getBookPicBookId() {
+		return bookPicBookId;
+	}
+
+	public void setBookPicBookId(Integer bookPicBookId) {
+		this.bookPicBookId = bookPicBookId;
+	}
+
+	public String getBoookPicPicture() {
+		return boookPicPicture;
+	}
+
+	public void setBoookPicPicture(String boookPicPicture) {
+		this.boookPicPicture = boookPicPicture;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author=" + author
-				+ ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
-				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
-				+ ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics + "]";
+		return "bookDto [id=" + id + ", title=" + title + ", bookCategoryId=" + bookCategoryId
+				+ ", bookCategoryCategory=" + bookCategoryCategory + ", author=" + author + ", technology=" + technology
+				+ ", publisher=" + publisher + ", publishDate=" + publishDate + ", status=" + status + ", postStart="
+				+ postStart + ", isbn=" + isbn + ", description=" + description + ", day=" + day
+				+ ", reservationStatus=" + reservationStatus + ", bookPicId=" + bookPicId + ", bookPicBookId="
+				+ bookPicBookId + ", boookPicPicture=" + boookPicPicture + "]";
 	}
 
 }

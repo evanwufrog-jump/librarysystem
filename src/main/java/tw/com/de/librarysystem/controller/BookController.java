@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +18,20 @@ import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.entity.impl.BookNo;
 import tw.com.de.librarysystem.model.repository.BookNoRepository;
 import tw.com.de.librarysystem.service.BookService;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
 
 @RequestMapping("/book")
 @RestController
 public class BookController {
+	private static final Logger logger = Logger.getLogger(BookController.class);
+
 	@Autowired
 	private BookService bookService;
 
 	@Autowired
 	private BookNoRepository bookNoRepository;
-
+	
 	@GetMapping("/bookSearch")
 	public List<Book> bookSearch(String title, String author, String technology) {
 		System.out.println("條件查詢成功");
@@ -59,6 +64,7 @@ public class BookController {
 	@PostMapping("/book")
 	public boolean save(Book book, Integer year) {
 		boolean flag = false;
+		PropertyConfigurator.configure("C:\\Users\\Alan lee\\eclipse-workspace\\librarysystem\\src\\main\\resources\\log4j.properties");
 		try {
 			String date = new SimpleDateFormat("yyyy").format(new Date());
 			year = Integer.valueOf(date);
@@ -84,7 +90,10 @@ public class BookController {
 			System.out.println("新增成功");
 			flag = true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e);
+			logger.error(e);
+			logger.debug(e);
+			logger.fatal(e);
 		}
 		return flag;
 	}
@@ -93,9 +102,9 @@ public class BookController {
 	public boolean delete(@PathVariable("id") Integer id) {
 		boolean flag = false;
 		try {
-			System.out.println("刪除成功");
 			bookService.delete(id);
 			flag = true;
+			System.out.println("刪除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
