@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.com.de.librarysystem.model.dto.BookPicDto;
 import tw.com.de.librarysystem.model.entity.impl.BookPic;
 import tw.com.de.librarysystem.model.repository.BookPicRepository;
 import tw.com.de.librarysystem.service.BookPicService;
+import tw.com.de.librarysystem.utility.Convert;
 
 @Service
 public class BookPicServiceImpl implements BookPicService {
@@ -22,8 +24,10 @@ public class BookPicServiceImpl implements BookPicService {
 	}
 
 	@Override
-	public Optional<BookPic> getBookPic(Integer id) {
-		return bookPicRepository.findById(id);
+	public BookPicDto getBookPic(Integer id) {
+		Optional<BookPic> bookPic = bookPicRepository.findById(id);
+		BookPicDto bookPicDto = Convert.toDto(bookPic.get(),new BookPicDto());
+		return bookPicDto;
 	}
 
 	@Override

@@ -5,8 +5,10 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @SuppressWarnings("serial")
-public class bookDto implements Serializable {
+public class BookDto implements Serializable {
 	private Integer id;
 	private String title;
 	private Integer bookCategoryId;
@@ -15,18 +17,17 @@ public class bookDto implements Serializable {
 	private String author;
 	private String technology;
 	private String publisher;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
 	private String status = "上架";
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate postStart = LocalDate.now();
 	private String isbn;
 	private String description;
 	private Integer day;
 	private String reservationStatus;
-	private Integer bookPicId;
-	private Integer bookPicBookId;
-	private String boookPicPicture;
 
 	public Integer getId() {
 		return id;
@@ -140,38 +141,13 @@ public class bookDto implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public Integer getBookPicId() {
-		return bookPicId;
-	}
-
-	public void setBookPicId(Integer bookPicId) {
-		this.bookPicId = bookPicId;
-	}
-
-	public Integer getBookPicBookId() {
-		return bookPicBookId;
-	}
-
-	public void setBookPicBookId(Integer bookPicBookId) {
-		this.bookPicBookId = bookPicBookId;
-	}
-
-	public String getBoookPicPicture() {
-		return boookPicPicture;
-	}
-
-	public void setBoookPicPicture(String boookPicPicture) {
-		this.boookPicPicture = boookPicPicture;
-	}
-
 	@Override
 	public String toString() {
-		return "bookDto [id=" + id + ", title=" + title + ", bookCategoryId=" + bookCategoryId
+		return "BookDto [id=" + id + ", title=" + title + ", bookCategoryId=" + bookCategoryId
 				+ ", bookCategoryCategory=" + bookCategoryCategory + ", author=" + author + ", technology=" + technology
 				+ ", publisher=" + publisher + ", publishDate=" + publishDate + ", status=" + status + ", postStart="
 				+ postStart + ", isbn=" + isbn + ", description=" + description + ", day=" + day
-				+ ", reservationStatus=" + reservationStatus + ", bookPicId=" + bookPicId + ", bookPicBookId="
-				+ bookPicBookId + ", boookPicPicture=" + boookPicPicture + "]";
+				+ ", reservationStatus=" + reservationStatus + "]";
 	}
 
 }

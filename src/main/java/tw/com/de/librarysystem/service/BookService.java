@@ -1,19 +1,18 @@
 package tw.com.de.librarysystem.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.repository.query.Param;
 
+import tw.com.de.librarysystem.model.dto.BookDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 
 public interface BookService {
-	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
-			String technology);
+	List<Book> findByTitle(String title, String author, String technology);
 
-	List<Book> findAll();
+	List<BookDto> findAll();
 
-	Optional<Book> getBook(Integer id);
+	BookDto getBook(Integer id);
 
 	boolean delete(Integer id);
 

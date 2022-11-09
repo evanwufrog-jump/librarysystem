@@ -3,9 +3,9 @@ package tw.com.de.librarysystem.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.com.de.librarysystem.model.dto.BookDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.entity.impl.BookNo;
 import tw.com.de.librarysystem.model.repository.BookNoRepository;
 import tw.com.de.librarysystem.service.BookService;
-import org.apache.log4j.PropertyConfigurator;
-import org.slf4j.LoggerFactory;
 
 @RequestMapping("/book")
 @RestController
@@ -31,12 +30,11 @@ public class BookController {
 
 	@Autowired
 	private BookNoRepository bookNoRepository;
-	
+
 	@GetMapping("/bookSearch")
 	public List<Book> bookSearch(String title, String author, String technology) {
 		System.out.println("條件查詢成功");
-		List<Book> books = bookService.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author,
-				technology);
+		List<Book> books = bookService.findByTitle(title, author, technology);
 		System.out.println(books.toString());
 		return books;
 	}
@@ -48,23 +46,22 @@ public class BookController {
 		System.out.println(bookService.findByTitleContaining(title));
 		return books;
 	}
-	
+
 	@GetMapping("/bookid/{id}")
-	public Optional<Book> getBook(@PathVariable Integer id) {
-		Optional<Book> book = bookService.getBook(id);
-		return book;
+	public BookDto getBook(@PathVariable Integer id) {
+		return bookService.getBook(id);
 	}
-	
+
 	@GetMapping("/book")
-	public List<Book> findAll() {
-		System.out.println("搜尋成功");
+	public List<BookDto> findAll() {
 		return bookService.findAll();
 	}
 
 	@PostMapping("/book")
 	public boolean save(Book book, Integer year) {
 		boolean flag = false;
-		PropertyConfigurator.configure("C:\\Users\\Alan lee\\eclipse-workspace\\librarysystem\\src\\main\\resources\\log4j.properties");
+		PropertyConfigurator.configure(
+				"C:\\Users\\Alan lee\\eclipse-workspace\\librarysystem\\src\\main\\resources\\log4j.properties");
 		try {
 			String date = new SimpleDateFormat("yyyy").format(new Date());
 			year = Integer.valueOf(date);
@@ -87,7 +84,6 @@ public class BookController {
 
 			}
 			bookService.save(book);
-			System.out.println("新增成功");
 			flag = true;
 		} catch (Exception e) {
 			logger.info(e);
@@ -104,7 +100,6 @@ public class BookController {
 		try {
 			bookService.delete(id);
 			flag = true;
-			System.out.println("刪除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

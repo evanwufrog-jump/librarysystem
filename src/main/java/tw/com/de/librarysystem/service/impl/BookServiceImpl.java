@@ -2,14 +2,17 @@ package tw.com.de.librarysystem.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.de.librarysystem.model.dto.BookDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.service.BookService;
+import tw.com.de.librarysystem.utility.Convert;
 
 @Service
 @Transactional
@@ -21,19 +24,32 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
-			String technology) {
-		return bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author, technology);
+	public List<Book> findByTitle(String title, String author, String technology) {
+		List<Book> books = bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author,
+				technology);
+		return books;
 	}
 
 	@Override
-	public List<Book> findAll() {
-		return bookRepository.findAll();
+	public List<BookDto> findAll() {
+		List<Book> books = bookRepository.findAll();
+		return books.stream()
+		.map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
+		.collect(Collectors.toList());
+//		List<BookDto> bookDtos = Convert.toDtoList(books, new BookDto());
+//		return bookDtos;
 	}
 
 	@Override
-	public Optional<Book> getBook(Integer id) {
-		return bookRepository.findById(id);
+	public BookDto getBook(Integer id) {
+		bookRepository.findById(id);
+		Optional<Book> op = bookRepository.findById(id);
+		BookDto bookDto = null;
+		if (op.isPresent()) {
+			 bookDto = Convert.toDto(op.get(), new BookDto());
+		}
+		return bookDto;
+
 	}
 
 	@Override
