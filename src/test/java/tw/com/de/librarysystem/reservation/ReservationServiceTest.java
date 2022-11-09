@@ -109,7 +109,7 @@ public class ReservationServiceTest {
 				// 有預約	
 				} else {
 					Reservation res = resList.get(0);
-					res.setStatus("11111待取書");// 待取書
+//					res.setStatus("11111待取書");// 待取書
 //					System.out.println( res.getId()+ "       " + resList.get(0).getStatus());
 					
 					reservationRepository.save(resList.get(0));// 這是dao的方法

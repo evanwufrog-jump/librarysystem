@@ -27,32 +27,35 @@ public class AuthorizationCheckFilter extends OncePerRequestFilter {
         if(!request.getServletPath().equals("/login")){
             System.out.println("不是登入，遭到攔截!!");
             String authorHeader =  request.getHeader(AUTHORIZATION);
-            String bearer ="bearer";
+            String bearer ="bearer ";
+
             //以jjwt驗證token，只要驗證成功就放行
             //驗證失敗會拋exception，直接將錯誤訊息傳回
             if(authorHeader!= null && authorHeader.startsWith(bearer)){
                 try{
                     String token = authorHeader.substring(bearer.length());
+                    System.out.println("收到token==================="+token);
                     Claims claims = Jwts.parser().setSigningKey("libsysKey")
                             .parseClaimsJws(token).getBody();
 
-
                     filterChain.doFilter(request, response);
-
+                    System.out.println("token驗證成功");
 
                 }catch(Exception e){
                     System.err.println("Error : "+e);
                     response.setStatus(FORBIDDEN.value());
-
                     Map<String, String> err = new HashMap<>();
                     err.put("jwt_err", e.getMessage());
                     response.setContentType(APPLICATION_JSON_VALUE);
                     new ObjectMapper().writeValue(response.getOutputStream(), err);
+                    System.out.println("token錯誤");
                 }
             }else{
                 response.setStatus(UNAUTHORIZED.value());
+                System.out.println("缺少token");
             }
         }else{
+            System.out.println("登入方法!! 不需要被filter");
             filterChain.doFilter(request, response);
         }
     }
