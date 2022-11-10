@@ -8,15 +8,15 @@ import tw.com.de.librarysystem.model.dto.BookDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 
 public interface BookService {
-	List<Book> findByTitle(String title, String author, String technology);
+	List<BookDto> findByTitle(String title, String author, String technology);
 
 	List<BookDto> findAll();
-
+	
 	BookDto getBook(Integer id);
 
 	boolean delete(Integer id);
 
-	Book save(Book book);
+	BookDto save(BookDto bookDto);
 
 	void updateStatusById(@Param("id") Integer id);
 

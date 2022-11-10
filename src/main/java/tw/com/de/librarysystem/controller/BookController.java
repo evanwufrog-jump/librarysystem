@@ -32,9 +32,9 @@ public class BookController {
 	private BookNoRepository bookNoRepository;
 
 	@GetMapping("/bookSearch")
-	public List<Book> bookSearch(String title, String author, String technology) {
+	public List<BookDto> bookSearch(String title, String author, String technology) {
 		System.out.println("條件查詢成功");
-		List<Book> books = bookService.findByTitle(title, author, technology);
+		List<BookDto> books = bookService.findByTitle(title, author, technology);
 		System.out.println(books.toString());
 		return books;
 	}
@@ -58,7 +58,7 @@ public class BookController {
 	}
 
 	@PostMapping("/book")
-	public boolean save(Book book, Integer year) {
+	public boolean save(BookDto bookdto, Integer year) {
 		boolean flag = false;
 		PropertyConfigurator.configure(
 				"C:\\Users\\Alan lee\\eclipse-workspace\\librarysystem\\src\\main\\resources\\log4j.properties");
@@ -74,16 +74,16 @@ public class BookController {
 				bookNo.setYear(year);
 				bookNoRepository.save(bookNo);
 				int i = (year * 1000) + number;
-				book.setId(i);
+				bookdto.setId(i);
 			} else {
 				number = bookNo.getNumber();
 				bookNo.setNumber(number + 1);
 				bookNoRepository.save(bookNo);
 				int i = (year * 1000) + number;
-				book.setId(i);
+				bookdto.setId(i);
 
 			}
-			bookService.save(book);
+			bookService.save(bookdto);
 			flag = true;
 		} catch (Exception e) {
 			logger.info(e);

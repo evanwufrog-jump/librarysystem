@@ -2,6 +2,8 @@ package tw.com.de.librarysystem.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,6 +30,13 @@ public class BookDto implements Serializable {
 	private String description;
 	private Integer day;
 	private String reservationStatus;
+	private Set<BookPicDto> bookPics;
+	public Set<BookPicDto> getBookPics() {
+	      if (bookPics == null) {
+	    	  bookPics = new HashSet<BookPicDto>();
+	      }
+	      return bookPics;
+	   }
 
 	public Integer getId() {
 		return id;
@@ -141,13 +150,25 @@ public class BookDto implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
+	public void setBookPics(Set<BookPicDto> bookPics) {
+		this.bookPics = bookPics;
+	}
+
 	@Override
 	public String toString() {
 		return "BookDto [id=" + id + ", title=" + title + ", bookCategoryId=" + bookCategoryId
 				+ ", bookCategoryCategory=" + bookCategoryCategory + ", author=" + author + ", technology=" + technology
 				+ ", publisher=" + publisher + ", publishDate=" + publishDate + ", status=" + status + ", postStart="
 				+ postStart + ", isbn=" + isbn + ", description=" + description + ", day=" + day
-				+ ", reservationStatus=" + reservationStatus + "]";
+				+ ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics + "]";
 	}
 
-}
+
+	}
+
+	
+
+
+
+
+

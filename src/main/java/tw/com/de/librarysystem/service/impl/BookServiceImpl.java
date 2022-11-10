@@ -24,20 +24,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findByTitle(String title, String author, String technology) {
+	public List<BookDto> findByTitle(String title, String author, String technology) {
 		List<Book> books = bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author,
 				technology);
-		return books;
+		return books.stream().map(t -> (BookDto) Convert.toDto(t, Convert.toDto(t, new BookDto())))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<BookDto> findAll() {
 		List<Book> books = bookRepository.findAll();
-		return books.stream()
-		.map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
-		.collect(Collectors.toList());
-//		List<BookDto> bookDtos = Convert.toDtoList(books, new BookDto());
-//		return bookDtos;
+		List<BookDto> bookDtos = books.stream()
+				.map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
+				.collect(Collectors.toList());
+		System.out.println(bookDtos.toString());
+		return books.stream().map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
+				.collect(Collectors.toList());
+
 	}
 
 	@Override
@@ -46,7 +49,7 @@ public class BookServiceImpl implements BookService {
 		Optional<Book> op = bookRepository.findById(id);
 		BookDto bookDto = null;
 		if (op.isPresent()) {
-			 bookDto = Convert.toDto(op.get(), new BookDto());
+			bookDto = Convert.toDto(op.get(), new BookDto());
 		}
 		return bookDto;
 
@@ -65,8 +68,10 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book save(Book book) {
-		return bookRepository.save(book);
+	public BookDto save(BookDto bookDto) {
+		Book book = new Book();
+		Book book2 = bookRepository.save(book);
+		return Convert.toEntity(bookDto, book2);
 	}
 
 	// 書本狀態改成借出
