@@ -81,25 +81,5 @@ public class Reservation implements Serializable {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-//	 */
 
 }
-
-/*
- * @Id
- * 
- * @GeneratedValue(strategy = GenerationType.IDENTITY) private Integer id;
- * private Integer bookId; private String memNo; private String status;
- * 
- * @JsonFormat(pattern = "yyyy-MM-dd")
- * 
- * @Column(columnDefinition = "Date") private LocalDate date; public Integer
- * getId() { return id; } public void setId(Integer id) { this.id = id; } public
- * Integer getBookId() { return bookId; } public void setBookId(Integer bookId)
- * { this.bookId = bookId; } public String getMemNo() { return memNo; } public
- * void setMemNo(String memNo) { this.memNo = memNo; } public String getStatus()
- * { return status; } public void setStatus(String status) { this.status =
- * status; } public LocalDate getDate() { return date; } public void
- * setDate(LocalDate date) { this.date = date; } public static long
- * getSerialversionuid() { return serialVersionUID; }
- */

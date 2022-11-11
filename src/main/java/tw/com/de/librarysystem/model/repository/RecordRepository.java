@@ -12,7 +12,9 @@ import tw.com.de.librarysystem.model.entity.impl.Record;
 public interface RecordRepository extends JpaRepository<Record, Integer>{
 
 	
+	// book的id->bookID要調整，先不動。
 	List<Record> findByBook(Book book);
+	
 	
 	List<Record> findByMember(Member member);
 	

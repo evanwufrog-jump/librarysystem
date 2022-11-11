@@ -4,8 +4,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
 public class Convert {
+//	private static final ModelMapper modelMapper;
+//	static {
+//        modelMapper = new ModelMapper();
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//	}
+//	static <D, T>D map(final T entity, Class<D> dto) {
+//		return ModelMapper.map(entity, dto);
+//	}
+	
 	@SuppressWarnings("unchecked")
 	public static <D>D toDto(Object entity, Object dto) {
 		ModelMapper modelMapper = new ModelMapper();
@@ -24,5 +34,5 @@ public class Convert {
 		ModelMapper modelMapper = new ModelMapper();
 		return (E) modelMapper.map(dto, entity.getClass());		
 	};
-
 }
+//BeanUtils.copyProperties(entity, modelMapper);

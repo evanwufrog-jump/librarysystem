@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import tw.com.de.librarysystem.model.dto.RecordDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.entity.impl.Record;
@@ -30,17 +31,29 @@ public class RecordServiceTest {
 	@Autowired
 	BookRepository bookRepository;
 	
+	@Test
+	void deleteTest() {
+		RecordDto dto = new RecordDto();
+		dto.setId(2);
+		recordService.delete(dto);
+	}
+	
 	/*
 	@Test
 	void insertTest() {
-		Record record = new Record();
-		Book book = new Book(); book.setId(2022001);
-		Member member = new Member(); member.setMemNO("0001");
-		LocalDate date = LocalDate.of(2020, 1, 5);
-		record.setBook(book);
-		record.setLendingDate(date);
-		record.setMember(member);
-		recordService.insert(record);
+		RecordDto dto = new RecordDto();
+		dto.setBookId(1);
+		dto.setBookTitle(null);
+		dto.setMemberMemNo("0001");
+		dto.setLendingCheckedDate(LocalDate.of(2021, 1, 5));
+		
+//		Book book = new Book(); book.setId(2022001);
+//		Member member = new Member(); member.setMemNO("0001");
+//		LocalDate date = LocalDate.of(2020, 1, 5);
+//		record.setBook(book);
+//		record.setLendingDate(date);
+//		record.setMember(member);
+		recordService.insert(dto);
 	}
 	*/
 	/*
@@ -85,6 +98,7 @@ public class RecordServiceTest {
 	}
 	*/
 	// null無法列印
+	/*
 	@Test
 	void findByBookNo() {
 		List<Record> list = recordService.findByBookNo(2022001);
@@ -106,7 +120,7 @@ public class RecordServiceTest {
 		list.addAll(list1);
 		System.out.println(list);
 	}
-	
+	*/
 	
 	
 

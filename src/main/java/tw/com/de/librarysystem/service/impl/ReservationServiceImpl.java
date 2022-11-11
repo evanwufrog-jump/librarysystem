@@ -2,129 +2,131 @@ package tw.com.de.librarysystem.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.dto.ReservationDto;
 import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.entity.impl.Reservation;
-import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.model.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.ReservationService;
+import tw.com.de.librarysystem.utility.Convert;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
-	
-	@Autowired	
+
+	@Autowired
 	ReservationRepository reservationRepository;
-	
-	
-	
+
 //	@Autowired
 //	BookRepository bookRepository;
 
 	@Transactional
-	@Override
-	public Integer insert(Reservation reservation) {
-		Reservation res = reservationRepository.save(reservation);
-		if (res == null) {
-			return 0;			
-		} else {
+	@Override  // 未測，有測過updeate
+	public Integer insert(ReservationDto dto) {
+		reservationRepository.saveAndFlush(Convert.toEntity(dto, new Reservation()));
+//		Reservation res = reservationRepository.saveAndFlush(Convert.toEntity(dto, new Reservation()));
 			return 1;
-
-		}
 	}
 
 	@Transactional
 	@Override
-	public Integer update(Reservation reservation) {
-		Reservation res = reservationRepository.save(reservation);
-		if (res == null) {
-			return 0;			
-		} else {
-			return 1;
-
+	public Integer update(ReservationDto dto) {
+		Reservation res = reservationRepository.saveAndFlush(Convert.toEntity(dto, new Reservation()));
+		Integer num = 0;
+		if (res != null) {
+			num = 1;
 		}
+		return num;
 	}
 
-	@SuppressWarnings("null")
 	@Transactional
-	@Override
-	public Integer delete(Integer id) {
-		
+	@Override //OK
+	public Integer delete(ReservationDto dto) {
+//		Reservation rs = Convert.toEntity(dto, new Reservation());
+//		Integer id = rs.getId();
+		Integer id = dto.getId();
+		reservationRepository.findById(id);
 		Optional<Reservation> op = reservationRepository.findById(id);
+		Integer num = 0;
 		if (op.isPresent()) {
 			reservationRepository.deleteById(id);
-			return 1;
-		} else {
-			return 0;
+			num = 1;
 		}
-		
-		
-		/*
-		// 以下為按還書後傳入
-		Integer bookId = 2022001;
-		Optional<Book> op = bookRepository.findById(bookId);
-		Book book = op.get();
-		// ------------------------
-		
-		List<Reservation> ResList = reservationRepository.findByBook(book);
-		if (ResList == null) {
-			reservationRepository.delete(ResList.get(0));
-			book.setStatus("在架上！！！");
-			bookRepository.save(book);
-			
-		} else {
-			ResList.get(0).setStatus("待取書");
-			reservationRepository.save(ResList.get(0));
-			//系統發信
+		return num;		
+//		Integer id = (Convert.toEntity(dto, new Reservation())).getId(); // 不能直接找
+//		if (op.isPresent()) {
+//			reservationRepository.deleteById(id);
+//			return 1;
+//		} else {
+//			return 0;
+//		}
 
-		}
-		return 1;
-		*/
-		
+		/*
+		 * // 以下為按還書後傳入 Integer bookId = 2022001; Optional<Book> op =
+		 * bookRepository.findById(bookId); Book book = op.get(); //
+		 * ------------------------
+		 * 
+		 * List<Reservation> ResList = reservationRepository.findByBook(book); if
+		 * (ResList == null) { reservationRepository.delete(ResList.get(0));
+		 * book.setStatus("在架上！！！"); bookRepository.save(book);
+		 * 
+		 * } else { ResList.get(0).setStatus("待取書");
+		 * reservationRepository.save(ResList.get(0)); //系統發信
+		 * 
+		 * } return 1;
+		 */
 	}
 
-	@Override
-	public List<Reservation> findAllByTitle(String title) {
-		Book book = new Book();
-		book.setTitle(title);
+	@Override // OK
+	public List<ReservationDto> findAllByTitle(ReservationDto dto) {
+		StringBuffer buffer = new StringBuffer();
+		return reservationRepository.findByBookLikeTitle(buffer.append("%")
+															.append(dto.getBookTitle())
+															.append("%").toString()
+															)
+				.stream().map(e -> (ReservationDto) Convert.toDto(e, dto))
+				.collect(Collectors.toList());
+//		return Convert.toDto(
+//				reservationRepository.findByBookLikeTitle(buffer.append("%").append(dto.getBookTitle()).append("%").toString()), new ReservationDto());
 		
+//		StringBuffer buffer = new StringBuffer();
+//		String title = buffer.append("%").append(dto.getBookTitle()).append("%").toString();
+//		List<Reservation> list = reservationRepository.findByBookLikeTitle(title);
 //		List<Reservation> list = reservationRepository.findByBookLikeTitleList(book);
-		List<Reservation> list = reservationRepository.findByBookLikeTitle(title);
-		if (list == null || list.size() == 0) {
-			return null;
-			
-		} else {
-			return list;
-
-		}
-		
+//		List<Reservation> list = reservationRepository.findByBookLikeTitle(title);
+//		if (list == null || list.size() == 0) {
+//			return null;
+//
+//		} else {
+//			return list;
+//		}
 	}
 
 	@Override
 	public List<Reservation> findAllByMember(Member member) {
-		return reservationRepository.findByMember(member);
-		
+		return reservationRepository.findByMember(member); // 還沒有member的dao 
 	}
 
-	@Override
-	public List<Reservation> findAll() {
-		return reservationRepository.findAll();
+	@Override //OK
+	public List<ReservationDto> findAll() {
+		return reservationRepository.findAll().stream()
+				.map(eo -> (ReservationDto) Convert.toDto(eo, new ReservationDto()))
+				.collect(Collectors.toList());
 	}
 
-	@Override
-	public Reservation findById(Integer id) {
-		
+	@Override //暫時不用
+	public ReservationDto findById(Integer id) {
 		Optional<Reservation> op = reservationRepository.findById(id);
 		if (op.isPresent()) {
-			return op.get();
+			return Convert.toDto(op.get(), new ReservationDto());
 		} else {
 			return null;
 		}
 	}
-
 
 }

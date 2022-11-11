@@ -1,16 +1,15 @@
 package tw.com.de.librarysystem.utility;
 
 import java.time.LocalDate;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 import tw.com.de.librarysystem.model.dto.LendingListDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.entity.impl.LendingList;
 import tw.com.de.librarysystem.model.entity.impl.Member;
 
-public class DTO {
+public class DTO implements Transfer<LendingList, LendingListDto>{
 
 	public static void main(String[] args) {
 		
@@ -26,7 +25,7 @@ public class DTO {
 		book.setTitle("java");
 		book.setId(107);
 //		book.setDay(30);
-		System.out.println(res.getBook().getId());
+//		System.out.println(res.getBook().getId());
 		mem.setMemNO("001");
 		mem.setPassword("13245678");
 		mem.setName("David");
@@ -35,9 +34,15 @@ public class DTO {
 		LendingListDto lendingListDto = Convert.toDto(res, new LendingListDto());
 		LendingListDto listDto = Transfer.toDto(res, new LendingListDto());
 		
+		List<LendingList> list = new ArrayList<>();
+		list.add(res);
+		System.err.println(list.get(0));
+		DTO dto = new DTO();
+		List<LendingListDto> list2 = dto.toDtoList(list, new LendingListDto());
+		System.out.println("list2: " + list2.get(0));
 		System.err.println(lendingListDto + "  <=========== entity to dto");
-		System.err.println(listDto + "  <=========== entity to dto");
-		
+		System.out.println(listDto + "  <=========== entity to dto");
+		System.err.println("=======================");
 		// ========================
 		
 		// -- dto to entity

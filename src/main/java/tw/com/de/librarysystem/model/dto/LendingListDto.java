@@ -3,6 +3,10 @@ package tw.com.de.librarysystem.model.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class LendingListDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -13,7 +17,11 @@ public class LendingListDto implements Serializable{
 //	private Member member;
 	private String memberMemNo;
 	private String memberName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate lendingDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate expiryDate;
 	
 	public Integer getBookId() {

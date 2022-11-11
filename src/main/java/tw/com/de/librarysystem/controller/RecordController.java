@@ -7,9 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.com.de.librarysystem.model.dto.RecordDto;
+import tw.com.de.librarysystem.model.dto.ResponseDto;
 import tw.com.de.librarysystem.model.entity.impl.BookNo;
 import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.entity.impl.Record;
@@ -25,15 +28,15 @@ public class RecordController {
 	@Autowired
 	RecordService recordService;
 	
-	@GetMapping(value = "/findAllData")
-	public List<Record> findAllDataHandler() {
-		
-		try {
-			List<Record> list =  recordService.findAll();
-			return list;			
-		} catch (Exception e) {
-			return null;
-		}
+	@GetMapping(value = "/findAllData") // OK
+	public ResponseDto findAllDataHandler() {
+		return ResponseDto.success(recordService.findAll());
+//		try {
+//			List<Record> list =  recordService.findAll();
+//			return list;			
+//		} catch (Exception e) {
+//			return null;
+//		}
 ////		Map<String, List<Record>> map = new HashMap<>();
 //		if (list != null) {
 //			list.forEach(record -> System.err.println(record.getMember().getMemNO()));
@@ -60,22 +63,27 @@ public class RecordController {
 //		}
 //	}
 	
-	@PostMapping(value = "/update")
-	public Integer updateNumberHandler(Record record) {
-		return recordService.update(record);
+	@PutMapping(value = "/update") // OK
+	public ResponseDto updateNumberHandler(RecordDto dto) {
+		return ResponseDto.success(recordService.update(dto));
+//		recordService.update(dto);
+//		return recordService.update(record);
 	}
 	
 	@GetMapping(value = "/findByMember")
-	public List<Record> findByMemberhandler(Member member) {
+	public List<Record> findByMemberHandler(Member member) {
 		//沒有判斷是否有
 		return recordService.findAllByMember(member);
 	}
 	
-	@GetMapping(value = "/findByBookTitle")
-    public List<Record> findByBookTitleHandler(String title) {
-		//title = "%" +title + "%";
+	@GetMapping(value = "/findByBookTitle") // OK
+    public ResponseDto findByBookTitleHandler(RecordDto dto) {
+//		title = "%" +title + "%";
 		//沒有判斷是否有
-		return recordService.findByTitleLike(title);
+//		List<Record> list = recordService.findByTitleLike(title);
+//		System.err.println("==============>" + list.isEmpty() + "==============>");
+//		return list;
+		return ResponseDto.success(recordService.findByTitleLike(dto));
 	}
 	
 
