@@ -33,15 +33,15 @@ public class ReservationServiceTest {
 	@Autowired
 	ReservationRepository reservationRepository;
 	
-	@Test
-	void findAllAndByIdTest () {
-		List<Reservation> listAll = reservationService.findAll();
-		System.err.println("================================");
-		System.out.println(listAll.size());
-		
-		Reservation rese = reservationService.findById(6);
-		System.err.println(rese.getDate());
-	}
+//	@Test
+//	void findAllAndByIdTest () {
+//		List<Reservation> listAll = reservationService.findAll();
+//		System.err.println("================================");
+//		System.out.println(listAll.size());
+//		
+//		Reservation rese = reservationService.findById(6);
+//		System.err.println(rese.getDate());
+//	}
 	
 	/*
 	@Test

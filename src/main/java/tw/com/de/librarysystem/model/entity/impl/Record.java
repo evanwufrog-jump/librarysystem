@@ -34,7 +34,7 @@ public class Record {
 	private LocalDate returnDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate LendingCheckedDate;
+	private LocalDate lendingCheckedDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate returnCheckedDate;
@@ -69,23 +69,29 @@ public class Record {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public LocalDate getLendingCheckedDate() {
-		return LendingCheckedDate;
-	}
-	public void setLendingCheckedDate(LocalDate lendingCheckedDate) {
-		LendingCheckedDate = lendingCheckedDate;
-	}
+	
 	public LocalDate getReturnCheckedDate() {
 		return returnCheckedDate;
 	}
 	public void setReturnCheckedDate(LocalDate returnCheckedDate) {
 		this.returnCheckedDate = returnCheckedDate;
 	}
+	public LocalDate getLendingCheckedDate() {
+		return lendingCheckedDate;
+	}
+	public void setLendingCheckedDate(LocalDate lendingCheckedDate) {
+		this.lendingCheckedDate = lendingCheckedDate;
+	}
+	
 	@Override
 	public String toString() {
 		return "Record [id=" + id + ", book=" + book + ", member=" + member + ", lendingDate=" + lendingDate
-				+ ", returnDate=" + returnDate + ", LendingCheckedDate=" + LendingCheckedDate + ", returnCheckedDate="
-				+ returnCheckedDate + "]";
+				+ ", returnDate=" + returnDate + ", lendingCheckedDate=" + lendingCheckedDate + ", returnCheckedDate="
+				+ returnCheckedDate + ", getId()=" + getId() + ", getLendingDate()=" + getLendingDate()
+				+ ", getReturnDate()=" + getReturnDate() + ", getBook()=" + getBook() + ", getMember()=" + getMember()
+				+ ", getReturnCheckedDate()=" + getReturnCheckedDate() + ", getLendingCheckedDate()="
+				+ getLendingCheckedDate() + "]";
 	}
+	
 	
 }

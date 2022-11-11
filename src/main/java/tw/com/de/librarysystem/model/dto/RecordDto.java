@@ -1,10 +1,12 @@
 package tw.com.de.librarysystem.model.dto;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class RecordDto implements Serializable {
-	private static final long serialVersionUID = 1L;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class RecordDto {
 
 	private Integer id;
 //	private Book book;
@@ -13,8 +15,17 @@ public class RecordDto implements Serializable {
 //	private Member member;
 	private String memberMemNo;
 	private String memberName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate lendingDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate returnDate;
-	private LocalDate LendingCheckedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate lendingCheckedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate returnCheckedDate;
 	public Integer getId() {
 		return id;
@@ -52,27 +63,30 @@ public class RecordDto implements Serializable {
 	public void setReturnDate(LocalDate returnDate) {
 		this.returnDate = returnDate;
 	}
-	public LocalDate getLendingCheckedDate() {
-		return LendingCheckedDate;
-	}
-	public void setLendingCheckedDate(LocalDate lendingCheckedDate) {
-		LendingCheckedDate = lendingCheckedDate;
-	}
+	
 	public LocalDate getReturnCheckedDate() {
 		return returnCheckedDate;
 	}
 	public void setReturnCheckedDate(LocalDate returnCheckedDate) {
 		this.returnCheckedDate = returnCheckedDate;
 	}
+	public LocalDate getLendingCheckedDate() {
+		return lendingCheckedDate;
+	}
+	public void setLendingCheckedDate(LocalDate lendingCheckedDate) {
+		this.lendingCheckedDate = lendingCheckedDate;
+	}
+	
 	@Override
 	public String toString() {
 		return "RecordDto [id=" + id + ", bookId=" + bookId + ", bookTitle=" + bookTitle + ", memberMemNo="
-				+ memberMemNo + ", memberName=" + memberName + ", returnDate=" + returnDate + ", LendingCheckedDate="
-				+ LendingCheckedDate + ", returnCheckedDate=" + returnCheckedDate + ", getId()=" + getId()
+				+ memberMemNo + ", memberName=" + memberName + ", returnDate=" + returnDate + ", lendingCheckedDate="
+				+ lendingCheckedDate + ", returnCheckedDate=" + returnCheckedDate + ", getId()=" + getId()
 				+ ", getBookId()=" + getBookId() + ", getBookTitle()=" + getBookTitle() + ", getMemberMemNo()="
 				+ getMemberMemNo() + ", getMemberName()=" + getMemberName() + ", getReturnDate()=" + getReturnDate()
-				+ ", getLendingCheckedDate()=" + getLendingCheckedDate() + ", getReturnCheckedDate()="
-				+ getReturnCheckedDate() + "]";
+				+ ", getReturnCheckedDate()=" + getReturnCheckedDate() + ", getLendingCheckedDate()="
+				+ getLendingCheckedDate() + "]";
 	}
+	
 
 }
