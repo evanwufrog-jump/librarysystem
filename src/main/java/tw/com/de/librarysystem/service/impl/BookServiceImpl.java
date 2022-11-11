@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.de.librarysystem.model.dto.BookDto;
+import tw.com.de.librarysystem.model.dto.BookResponseDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.service.BookService;
+import tw.com.de.librarysystem.utility.Convert;
 
 @Service
 @Transactional
@@ -21,19 +24,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,
-			String technology) {
-		return bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author, technology);
+	public List<BookResponseDto> findByTitle(String title, String author, String technology) {
+		List<Book> books = bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author,
+				technology);
+		return Convert.mapAll(books, BookResponseDto.class);
 	}
 
 	@Override
-	public List<Book> findAll() {
-		return bookRepository.findAll();
+	public List<BookResponseDto> findAll() {
+		List<Book> books = bookRepository.findAll();
+		return Convert.mapAll(books, BookResponseDto.class);
 	}
 
 	@Override
-	public Optional<Book> getBook(Integer id) {
-		return bookRepository.findById(id);
+	public BookResponseDto getBook(Integer id) {
+		bookRepository.findById(id);
+		Optional<Book> op = bookRepository.findById(id);
+		return Convert.map(op, BookResponseDto.class);
 	}
 
 	@Override
@@ -49,8 +56,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book save(Book book) {
-		return bookRepository.save(book);
+	public Integer save(BookDto bookDto) {
+		Book book = Convert.mapEntity(bookDto, new Book());
+		System.err.println(book);
+		bookRepository.save(book);
+		return 1;
 	}
 
 	// 書本狀態改成借出
@@ -84,8 +94,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findByTitleContaining(String title) {
-		return bookRepository.findByTitleContaining(title);
+	public List<BookResponseDto> findByTitleContaining(String title) {
+		List<Book> book = bookRepository.findByTitleContaining(title);
+		return Convert.mapAll(book, BookResponseDto.class);
 	}
 
 }

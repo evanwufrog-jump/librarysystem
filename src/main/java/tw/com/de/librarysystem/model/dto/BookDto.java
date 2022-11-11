@@ -2,31 +2,43 @@ package tw.com.de.librarysystem.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@SuppressWarnings("serial")
-public class bookDto implements Serializable {
-	private Integer id;
-	private String title;
-	private Integer bookCategoryId;
-	private String bookCategoryCategory;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import tw.com.de.librarysystem.model.entity.impl.BookCategory;
+
+@SuppressWarnings("serial")
+public class BookDto implements Serializable {
+	private Integer id;
+	private Integer bookNo;
+	private String title;
+	private BookCategory bookCategory;
 	private String author;
 	private String technology;
 	private String publisher;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
 	private String status = "上架";
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate postStart = LocalDate.now();
 	private String isbn;
 	private String description;
 	private Integer day;
-	private String reservationStatus;
-	private Integer bookPicId;
-	private Integer bookPicBookId;
-	private String boookPicPicture;
+	private String reservationStatus = "可預約";
+	private Set<BookPicDto> bookPics;
+
+	public Set<BookPicDto> getBookPics() {
+		if (bookPics == null) {
+			bookPics = new HashSet<BookPicDto>();
+		}
+		return bookPics;
+	}
 
 	public Integer getId() {
 		return id;
@@ -44,20 +56,12 @@ public class bookDto implements Serializable {
 		this.title = title;
 	}
 
-	public Integer getBookCategoryId() {
-		return bookCategoryId;
+	public BookCategory getBookCategory() {
+		return bookCategory;
 	}
 
-	public void setBookCategoryId(Integer bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
-	}
-
-	public String getBookCategoryCategory() {
-		return bookCategoryCategory;
-	}
-
-	public void setBookCategoryCategory(String bookCategoryCategory) {
-		this.bookCategoryCategory = bookCategoryCategory;
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
 	}
 
 	public String getAuthor() {
@@ -140,38 +144,26 @@ public class bookDto implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public Integer getBookPicId() {
-		return bookPicId;
+	public void setBookPics(Set<BookPicDto> bookPics) {
+		this.bookPics = bookPics;
 	}
 
-	public void setBookPicId(Integer bookPicId) {
-		this.bookPicId = bookPicId;
+	public Integer getBookNo() {
+		return bookNo;
 	}
 
-	public Integer getBookPicBookId() {
-		return bookPicBookId;
-	}
-
-	public void setBookPicBookId(Integer bookPicBookId) {
-		this.bookPicBookId = bookPicBookId;
-	}
-
-	public String getBoookPicPicture() {
-		return boookPicPicture;
-	}
-
-	public void setBoookPicPicture(String boookPicPicture) {
-		this.boookPicPicture = boookPicPicture;
+	public void setBookNo(Integer bookNo) {
+		this.bookNo = bookNo;
 	}
 
 	@Override
 	public String toString() {
-		return "bookDto [id=" + id + ", title=" + title + ", bookCategoryId=" + bookCategoryId
-				+ ", bookCategoryCategory=" + bookCategoryCategory + ", author=" + author + ", technology=" + technology
-				+ ", publisher=" + publisher + ", publishDate=" + publishDate + ", status=" + status + ", postStart="
-				+ postStart + ", isbn=" + isbn + ", description=" + description + ", day=" + day
-				+ ", reservationStatus=" + reservationStatus + ", bookPicId=" + bookPicId + ", bookPicBookId="
-				+ bookPicBookId + ", boookPicPicture=" + boookPicPicture + "]";
+		return "BookDto [id=" + id + ", bookNo=" + bookNo + ", title=" + title + ", bookCategory=" + bookCategory
+				+ ", author=" + author + ", technology=" + technology + ", publisher=" + publisher + ", publishDate="
+				+ publishDate + ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description="
+				+ description + ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics
+				+ "]";
 	}
+
 
 }
