@@ -2,13 +2,13 @@ package tw.com.de.librarysystem.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.de.librarysystem.model.dto.BookDto;
+import tw.com.de.librarysystem.model.dto.BookResponseDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
 import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.service.BookService;
@@ -24,35 +24,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookDto> findByTitle(String title, String author, String technology) {
+	public List<BookResponseDto> findByTitle(String title, String author, String technology) {
 		List<Book> books = bookRepository.findByTitleContainingOrAuthorContainingOrTechnologyContaining(title, author,
 				technology);
-		return books.stream().map(t -> (BookDto) Convert.toDto(t, Convert.toDto(t, new BookDto())))
-				.collect(Collectors.toList());
+		return Convert.mapAll(books, BookResponseDto.class);
 	}
 
 	@Override
-	public List<BookDto> findAll() {
+	public List<BookResponseDto> findAll() {
 		List<Book> books = bookRepository.findAll();
-		List<BookDto> bookDtos = books.stream()
-				.map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
-				.collect(Collectors.toList());
-		System.out.println(bookDtos.toString());
-		return books.stream().map(book -> (BookDto) Convert.toDto(book, Convert.toDto(book, new BookDto())))
-				.collect(Collectors.toList());
-
+		return Convert.mapAll(books, BookResponseDto.class);
 	}
 
 	@Override
-	public BookDto getBook(Integer id) {
+	public BookResponseDto getBook(Integer id) {
 		bookRepository.findById(id);
 		Optional<Book> op = bookRepository.findById(id);
-		BookDto bookDto = null;
-		if (op.isPresent()) {
-			bookDto = Convert.toDto(op.get(), new BookDto());
-		}
-		return bookDto;
-
+		return Convert.map(op, BookResponseDto.class);
 	}
 
 	@Override
@@ -68,10 +56,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public BookDto save(BookDto bookDto) {
-		Book book = new Book();
-		Book book2 = bookRepository.save(book);
-		return Convert.toEntity(bookDto, book2);
+	public Integer save(BookDto bookDto) {
+		Book book = Convert.mapEntity(bookDto, new Book());
+		System.err.println(book);
+		bookRepository.save(book);
+		return 1;
 	}
 
 	// 書本狀態改成借出
@@ -105,8 +94,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> findByTitleContaining(String title) {
-		return bookRepository.findByTitleContaining(title);
+	public List<BookResponseDto> findByTitleContaining(String title) {
+		List<Book> book = bookRepository.findByTitleContaining(title);
+		return Convert.mapAll(book, BookResponseDto.class);
 	}
 
 }

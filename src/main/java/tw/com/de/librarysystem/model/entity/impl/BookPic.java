@@ -13,19 +13,10 @@ public class BookPic implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer bookId;
 	private String picture;
 
 	public Integer getId() {
 		return id;
-	}
-
-	public Integer getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
 	}
 
 	public void setId(Integer id) {
@@ -42,8 +33,7 @@ public class BookPic implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BookPic [id=" + id + ", bookId=" + bookId + ", picture=" + picture + "]";
+		return "BookPic [id=" + id + ", picture=" + picture + "]";
 	}
-
 
 }

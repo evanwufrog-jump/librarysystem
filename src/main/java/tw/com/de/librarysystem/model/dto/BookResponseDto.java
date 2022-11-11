@@ -1,6 +1,5 @@
 package tw.com.de.librarysystem.model.dto;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,10 +10,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import tw.com.de.librarysystem.model.entity.impl.BookCategory;
 
-@SuppressWarnings("serial")
-public class BookDto implements Serializable {
+public class BookResponseDto {
 	private Integer id;
-	private Integer bookNo;
 	private String title;
 	private BookCategory bookCategory;
 	private String author;
@@ -23,21 +20,37 @@ public class BookDto implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
-	private String status = "上架";
+	private String status ;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate postStart = LocalDate.now();
+	private LocalDate postStart ;
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDate getPostStart() {
+		return postStart;
+	}
+
+	public void setPostStart(LocalDate postStart) {
+		this.postStart = postStart;
+	}
+
 	private String isbn;
 	private String description;
 	private Integer day;
-	private String reservationStatus = "可預約";
 	private Set<BookPicDto> bookPics;
-
-	public Set<BookPicDto> getBookPics() {
-		if (bookPics == null) {
-			bookPics = new HashSet<BookPicDto>();
-		}
-		return bookPics;
+	
+	@Override
+	public String toString() {
+		return "BookResponseDto [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author="
+				+ author + ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
+				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
+				+ ", day=" + day + ", bookPics=" + bookPics + "]";
 	}
 
 	public Integer getId() {
@@ -96,22 +109,6 @@ public class BookDto implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public LocalDate getPostStart() {
-		return postStart;
-	}
-
-	public void setPostStart(LocalDate postStart) {
-		this.postStart = postStart;
-	}
-
 	public String getIsbn() {
 		return isbn;
 	}
@@ -136,34 +133,14 @@ public class BookDto implements Serializable {
 		this.day = day;
 	}
 
-	public String getReservationStatus() {
-		return reservationStatus;
-	}
-
-	public void setReservationStatus(String reservationStatus) {
-		this.reservationStatus = reservationStatus;
-	}
-
 	public void setBookPics(Set<BookPicDto> bookPics) {
 		this.bookPics = bookPics;
 	}
 
-	public Integer getBookNo() {
-		return bookNo;
+	public Set<BookPicDto> getBookPics() {
+		if (bookPics == null) {
+			bookPics = new HashSet<BookPicDto>();
+		}
+		return bookPics;
 	}
-
-	public void setBookNo(Integer bookNo) {
-		this.bookNo = bookNo;
-	}
-
-	@Override
-	public String toString() {
-		return "BookDto [id=" + id + ", bookNo=" + bookNo + ", title=" + title + ", bookCategory=" + bookCategory
-				+ ", author=" + author + ", technology=" + technology + ", publisher=" + publisher + ", publishDate="
-				+ publishDate + ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description="
-				+ description + ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics
-				+ "]";
-	}
-
-
 }

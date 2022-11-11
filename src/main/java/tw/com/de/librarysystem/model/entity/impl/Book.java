@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Book implements Serializable {
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private Integer bookNo;
 	private String title;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -45,11 +47,10 @@ public class Book implements Serializable {
 	private String isbn;
 	private String description;
 	private Integer day;
-	@NotNull
-	private String reservationStatus;
+	private String reservationStatus = "可預約";
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BookId")
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "book_id")
 	private Set<BookPic> bookPics;
 
 	public Integer getId() {
@@ -164,13 +165,24 @@ public class Book implements Serializable {
 		this.bookPics = bookPics;
 	}
 
+	public Integer getBookNo() {
+		return bookNo;
+	}
+
+	public void setBookNo(Integer bookNo) {
+		this.bookNo = bookNo;
+	}
+
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author=" + author
-				+ ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
-				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
-				+ ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics + "]";
+		return "Book [id=" + id + ", bookNo=" + bookNo + ", title=" + title + ", bookCategory=" + bookCategory
+				+ ", author=" + author + ", technology=" + technology + ", publisher=" + publisher + ", publishDate="
+				+ publishDate + ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description="
+				+ description + ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics
+				+ "]";
 	}
+
+
 
 
 }

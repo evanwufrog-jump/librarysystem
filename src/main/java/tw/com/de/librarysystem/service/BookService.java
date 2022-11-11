@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 
 import tw.com.de.librarysystem.model.dto.BookDto;
-import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.dto.BookResponseDto;
 
 public interface BookService {
-	List<BookDto> findByTitle(String title, String author, String technology);
+	List<BookResponseDto> findByTitle(String title, String author, String technology);
 
-	List<BookDto> findAll();
+	List<BookResponseDto> findAll();
 	
-	BookDto getBook(Integer id);
+	BookResponseDto getBook(Integer id);
 
 	boolean delete(Integer id);
 
-	BookDto save(BookDto bookDto);
+	Integer save(BookDto bookDto);
 
 	void updateStatusById(@Param("id") Integer id);
 
@@ -24,6 +24,6 @@ public interface BookService {
 
 	void updateStatus3ById(@Param("id") Integer id);
 
-	List<Book> findByTitleContaining(String title);
+	List<BookResponseDto> findByTitleContaining(String title);
 
 }
