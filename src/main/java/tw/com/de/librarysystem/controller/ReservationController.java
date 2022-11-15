@@ -1,7 +1,5 @@
 package tw.com.de.librarysystem.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import tw.com.de.librarysystem.exception.TestException;
 import tw.com.de.librarysystem.model.dto.ReservationDto;
 import tw.com.de.librarysystem.model.dto.ResponseDto;
-import tw.com.de.librarysystem.model.entity.impl.Member;
-import tw.com.de.librarysystem.model.entity.impl.Reservation;
 import tw.com.de.librarysystem.service.ReservationService;
 
 @RestController
@@ -49,10 +45,10 @@ public class ReservationController {
 		return ResponseDto.success(reservationService.update(dto));
 	}
 	
-	@GetMapping(value = "/findByMember") //尚未有memberDto
-	public List<Reservation> findByMemberHandler(Member member) {
+	@GetMapping(value = "/findByMember") // OK
+	public ResponseDto findByMemberHandler(ReservationDto dto) {
 		//沒有判斷是否有
-		return reservationService.findAllByMember(member);
+		return ResponseDto.success(reservationService.findAllByMember(dto));
 	}
 	
 	@GetMapping(value = "/findByBookTitle") // OK

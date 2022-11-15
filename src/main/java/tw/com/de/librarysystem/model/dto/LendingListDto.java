@@ -13,13 +13,19 @@ public class LendingListDto implements Serializable{
 	private Integer id;
 //	private Book book;
 	private Integer bookId;//類別加類別原名
+	
 	private String bookTitle;
+	
 //	private Member member;
-	private String memberMemNo;
+	private Integer memberId;
+	
+	
 	private String memberName;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate lendingDate;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate expiryDate;
@@ -27,42 +33,53 @@ public class LendingListDto implements Serializable{
 	public Integer getBookId() {
 		return bookId;
 	}
+	
 	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
+	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	public String getBookTitle() {
 		return bookTitle;
 	}
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
+	}	
+	
+	public Integer getMemberId() {
+		return memberId;
 	}
-	public String getMemberMemNo() {
-		return memberMemNo;
+
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
 	}
-	public void setMemberMemNo(String memberMemNo) {
-		this.memberMemNo = memberMemNo;
-	}
+
 	public String getMemberName() {
 		return memberName;
 	}
+	
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+	
 	public LocalDate getLendingDate() {
 		return lendingDate;
 	}
 	public void setLendingDate(LocalDate lendingDate) {
 		this.lendingDate = lendingDate;
 	}
+	
 	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
+	
 	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
@@ -70,11 +87,12 @@ public class LendingListDto implements Serializable{
 	@Override
 	public String toString() {
 		return "LendingListDto [id=" + id + ", bookId=" + bookId + ", bookTitle=" + bookTitle + ", memberMemNo="
-				+ memberMemNo + ", memberName=" + memberName + ", lendingDate=" + lendingDate + ", expiryDate="
+				+ memberId + ", memberName=" + memberName + ", lendingDate=" + lendingDate + ", expiryDate="
 				+ expiryDate + ", getBookId()=" + getBookId() + ", getId()=" + getId() + ", getBookTitle()="
-				+ getBookTitle() + ", getMemberMemNo()=" + getMemberMemNo() + ", getMemberName()=" + getMemberName()
+				+ getBookTitle() + ", getMemberMemNo()=" + getMemberId() + ", getMemberName()=" + getMemberName()
 				+ ", getLendingDate()=" + getLendingDate() + ", getExpiryDate()=" + getExpiryDate() + "]";
-	}	
+	}
+	
 }
 
 /*

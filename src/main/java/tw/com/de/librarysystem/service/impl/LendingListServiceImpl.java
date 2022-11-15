@@ -1,15 +1,19 @@
 package tw.com.de.librarysystem.service.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.com.de.librarysystem.model.dto.LendingListDto;
 import tw.com.de.librarysystem.model.entity.impl.LendingList;
 import tw.com.de.librarysystem.model.repository.LendingListRepository;
 import tw.com.de.librarysystem.service.LendingListService;
+import tw.com.de.librarysystem.utility.Convert;
 
 @Service
 public class LendingListServiceImpl implements LendingListService {
@@ -19,24 +23,15 @@ public class LendingListServiceImpl implements LendingListService {
 	
 	@Transactional
 	@Override
-	public Integer insert(LendingList lendingList) {
-		LendingList lend = lendingListRepository.save(lendingList);
-		if (lend == null) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
+	public Integer insert(LendingListDto dto) {
+		lendingListRepository.saveAndFlush(Convert.toEntity(dto, new LendingList()));
+		return 1;	}
 
 	@Transactional
 	@Override
-	public Integer updeate(LendingList lendingList) {
-		LendingList lend = lendingListRepository.save(lendingList);
-		if (lend == null) {
-			return 0;
-		} else {
-			return 1;
-		}
+	public Integer update(LendingListDto dto) {
+		lendingListRepository.saveAndFlush(Convert.toEntity(dto, new LendingList()));
+		return 1;
 	}
 
 	@Transactional
@@ -49,6 +44,28 @@ public class LendingListServiceImpl implements LendingListService {
 		} else {
 			return 0;
 		}
+	}
+
+	@Override
+	public List<LendingListDto> findByMemberId(LendingListDto dto) {
+		System.err.println(dto.getMemberId() + "<==========================");
+		return lendingListRepository.findByMemberId(dto.getMemberId()).stream()
+		.map(e -> (LendingListDto) Convert.toDto(e, new LendingListDto()))
+		.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<LendingListDto> findAll() {
+		return lendingListRepository.findAll().stream()
+		.map(e -> (LendingListDto) Convert.toDto(e, new LendingListDto()))
+		.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<LendingListDto> findByBookTitle(LendingListDto dto) {		
+		return lendingListRepository.findByBookTitle("%" + dto.getBookTitle() + "%").stream()
+				.map(e -> (LendingListDto) Convert.toDto(e, new LendingListDto()))
+				.collect(Collectors.toList());
 	}
 
 }

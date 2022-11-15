@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.com.de.librarysystem.model.dto.ReservationDto;
-import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.entity.impl.Reservation;
 import tw.com.de.librarysystem.model.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.ReservationService;
@@ -46,9 +45,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Transactional
 	@Override //OK
-	public Integer delete(ReservationDto dto) {
-//		Reservation rs = Convert.toEntity(dto, new Reservation());
-//		Integer id = rs.getId();
+	public Integer delete(ReservationDto dto) {		
+		reservationRepository.deleteById(dto.getId());		
+		return 1;
+		
+		/*
 		Integer id = dto.getId();
 		reservationRepository.findById(id);
 		Optional<Reservation> op = reservationRepository.findById(id);
@@ -57,7 +58,9 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationRepository.deleteById(id);
 			num = 1;
 		}
-		return num;		
+		return num;	
+		*/
+		
 //		Integer id = (Convert.toEntity(dto, new Reservation())).getId(); // 不能直接找
 //		if (op.isPresent()) {
 //			reservationRepository.deleteById(id);
@@ -84,6 +87,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override // OK
 	public List<ReservationDto> findAllByTitle(ReservationDto dto) {
+		/*
 		StringBuffer buffer = new StringBuffer();
 		return reservationRepository.findByBookLikeTitle(buffer.append("%")
 															.append(dto.getBookTitle())
@@ -91,6 +95,11 @@ public class ReservationServiceImpl implements ReservationService {
 															)
 				.stream().map(e -> (ReservationDto) Convert.toDto(e, dto))
 				.collect(Collectors.toList());
+		*/
+		return reservationRepository.findByBookLikeTitle("%" + dto.getBookTitle() + "%")
+				.stream().map(e -> (ReservationDto) Convert.toDto(e, dto))
+				.collect(Collectors.toList());
+		
 //		return Convert.toDto(
 //				reservationRepository.findByBookLikeTitle(buffer.append("%").append(dto.getBookTitle()).append("%").toString()), new ReservationDto());
 		
@@ -108,8 +117,11 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<Reservation> findAllByMember(Member member) {
-		return reservationRepository.findByMember(member); // 還沒有member的dao 
+	public List<ReservationDto> findAllByMember(ReservationDto dto) {
+		return reservationRepository.findByMemberId(dto.getMemberId()).stream()
+				.map(e -> (ReservationDto) Convert.toDto(e, new ReservationDto()))
+				.collect(Collectors.toList());
+//		return reservationRepository.findByMemberId(dto.getMemberId()); // 還沒有member的dao 
 	}
 
 	@Override //OK

@@ -3,8 +3,6 @@ package tw.com.de.librarysystem.service;
 import java.util.List;
 
 import tw.com.de.librarysystem.model.dto.ReservationDto;
-import tw.com.de.librarysystem.model.entity.impl.Member;
-import tw.com.de.librarysystem.model.entity.impl.Reservation;
 
 public interface ReservationService {
 	
@@ -25,7 +23,7 @@ public interface ReservationService {
 //	
 	public List<ReservationDto> findAllByTitle(ReservationDto dto); // OK
 	
-	public List<Reservation> findAllByMember(Member member);
+	public List<ReservationDto> findAllByMember(ReservationDto dto); // OK
 //	
 //	public List<Reservation> getAllByBookYear(Integer year);
 

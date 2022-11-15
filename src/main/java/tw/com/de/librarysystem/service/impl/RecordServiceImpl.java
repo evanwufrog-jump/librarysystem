@@ -1,12 +1,7 @@
 package tw.com.de.librarysystem.service.impl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import tw.com.de.librarysystem.model.dto.RecordDto;
 import tw.com.de.librarysystem.model.entity.impl.Book;
-import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.entity.impl.Record;
 import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.model.repository.RecordRepository;
@@ -132,13 +126,18 @@ public class RecordServiceImpl implements RecordService {
 		}
 	}
 
-	@Override
-	public List<Record> findAllByMember(Member member) {		
-		return recordRepository.findByMember(member);
+	@Override // OK
+	public List<RecordDto> findAllByMember(RecordDto dto) {
+		return recordRepository.findByMemberId(dto.getMemberId())
+				.stream()
+				.map(e -> (RecordDto) Convert.toDto(e, new RecordDto()))
+				.collect(Collectors.toList());
+//		return recordRepository.findByMember(member);
 	}
 
 
-	@Override // OK, 如何用stream處理
+	@SuppressWarnings("null")
+	@Override // OK, 如何用stream處理, 可以自訂sql搜尋增加效率
 	public List<RecordDto> findByTitleLike(RecordDto dto) {
 //		StringBuilder builder = new S
 		System.err.println(dto.getBookTitle());
@@ -179,15 +178,24 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	// book的id->bookID要調整，先不動。
-	/*
+	
 	@Override
-	public List<Record> findByBookNo(Integer bookNo) {
+	public List<RecordDto> findByBookTitle(RecordDto dto) {
+//		recordRepository.findByBook(null);
+		String title = "%" + dto.getBookTitle() + "%";
+		return recordRepository.findByBookTitleContain(title).stream()
+		.map(e -> (RecordDto) Convert.toDto(e, new RecordDto()))
+		.collect(Collectors.toList());
+		
+		/*
+		 * 以下原本是用在findByBookIk，應該用不到
 		Optional<Book> op = bookRepository.findById(bookNo);
 		if (op.isPresent()) {
-			return recordRepository.findByBook(op.get());			
+	 		return recordRepository.findByBook(op.get());			
 		} else {
 			return null;
 		}
+		*/
 	}
-	*/
+	
 }

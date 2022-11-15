@@ -1,25 +1,14 @@
 package tw.com.de.librarysystem.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.de.librarysystem.model.dto.RecordDto;
 import tw.com.de.librarysystem.model.dto.ResponseDto;
-import tw.com.de.librarysystem.model.entity.impl.BookNo;
-import tw.com.de.librarysystem.model.entity.impl.Member;
-import tw.com.de.librarysystem.model.entity.impl.Record;
-import tw.com.de.librarysystem.model.entity.impl.Reservation;
-import tw.com.de.librarysystem.service.BookNoService;
 import tw.com.de.librarysystem.service.RecordService;
-import tw.com.de.librarysystem.service.ReservationService;
 
 @RestController
 @RequestMapping(value = "/record")
@@ -70,10 +59,11 @@ public class RecordController {
 //		return recordService.update(record);
 	}
 	
-	@GetMapping(value = "/findByMember")
-	public List<Record> findByMemberHandler(Member member) {
+	@GetMapping(value = "/findByMember") // OK
+	public ResponseDto findByMemberHandler(RecordDto dto) {
 		//沒有判斷是否有
-		return recordService.findAllByMember(member);
+		return ResponseDto.success(recordService.findAllByMember(dto));
+//		return recordService.findAllByMember(dto);
 	}
 	
 	@GetMapping(value = "/findByBookTitle") // OK
@@ -83,7 +73,7 @@ public class RecordController {
 //		List<Record> list = recordService.findByTitleLike(title);
 //		System.err.println("==============>" + list.isEmpty() + "==============>");
 //		return list;
-		return ResponseDto.success(recordService.findByTitleLike(dto));
+		return ResponseDto.success(recordService.findByBookTitle(dto));
 	}
 	
 
