@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface MemberService {
     List<Member> findAll();
 
-//    Optional<Member> findByMemNo(String memNo);
-
     Member findByEmail(String email);
 
-//    Member findByMemNoAndEmail(String memNo,String email);
+    Optional<Member> findById(String memNO);
 
-    Optional<Member> findById(String memNo);
+    void updatePasswordByMemNO(String memNO, String password);
+
+
 }

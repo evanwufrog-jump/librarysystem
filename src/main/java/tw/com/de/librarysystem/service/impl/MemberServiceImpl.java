@@ -24,30 +24,25 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.findAll();
 	}
 
-//	@Transactional
-//	@Override
-//	public Optional<Member> findByMemNo(String memNo) {
-//
-//		return memberRepository.findById(memNo);
-//	}
-
 	@Transactional
 	@Override
 	public Member findByEmail(String email) {
 		return memberRepository.findByEmail(email);
 	}
 
-//	@Transactional
-//	@Override
-//	public Member findByMemNoAndEmail(String memNo, String email) {
-//		return memberRepository.findByMemNoAndEmail(memNo, email);
-//	}
+	@Transactional
+	@Override
+	public Optional<Member> findById(String memNO) {
+		return memberRepository.findById(memNO);
+	}
 
 	@Transactional
 	@Override
-	public Optional<Member> findById(String memNo) {
-		return memberRepository.findById(memNo);
+	public void updatePasswordByMemNO(String memNO, String password){
+		memberRepository.updatePasswordByMemNO(memNO,password);
 	}
+
+
 }
 
 
