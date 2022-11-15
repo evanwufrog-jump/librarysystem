@@ -10,7 +10,9 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import tw.com.de.librarysystem.model.dto.ChangePasswordDto;
 import tw.com.de.librarysystem.model.entity.impl.Member;
+
 import tw.com.de.librarysystem.service.MemberService;
 import tw.com.de.librarysystem.utility.LibraryEmailSender;
 
@@ -207,33 +209,5 @@ public class LoginController {
 
 	//===============dto===================
 //整合後該移動至dto路徑
-	class ChangePasswordDto {
-		String email = "";
-		String oldPassword = "";
-		String newPassword = "";
 
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		public String getOldPassword() {
-			return oldPassword;
-		}
-
-		public void setOldPassword(String oldPassword) {
-			this.oldPassword = oldPassword;
-		}
-
-		public String getNewPassword() {
-			return newPassword;
-		}
-
-		public void setNewPassword(String newPassword) {
-			this.newPassword = newPassword;
-		}
-	}
 }
