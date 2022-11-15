@@ -67,6 +67,7 @@ public class LoginController {
 //	public String forgotVerify(@RequestParam(name = "email") String,@RequestParam(name = "memberID") String) {
 	public String getNewPassword(@RequestBody Member member){
 		Map<String, String> restApiData = new HashMap<>();
+
 	//let forgotVerify method，verify userData，if pass then send email with new password
 		Map<String, Object> verifyData = forgotVerify(member.getEmail(),member.getMemNO(),member.getName());
 		//verify status 1:驗證成功 2:驗證失敗 3:信箱錯誤
@@ -74,8 +75,17 @@ public class LoginController {
 		String msg = (String)verifyData.get("msg");
 		restApiData.put("status",status);
 		if(status.equals("1")){
-			sendNewPassword(member);
+
+			String newPassword = UUID.randomUUID().toString().substring(8);
+			memberService.updatePasswordByMemNO(member.getMemNO(), newPassword);
+			Map<String, String> model = new HashMap<>();
+			model.put("memNO",member.getMemNO());
+			model.put("name",member.getName());
+			model.put("password",newPassword);
+			Map<String, String> senderResponse = libraryEmailSender(member.getEmail(), model, "密碼重置","newPassword.ftl");
+			if(senderResponse.get("status").equals(""))
 			restApiData.put("msg", msg);
+
 		}else {
 			//error msg to frontend
 			restApiData.put("msg", msg);
@@ -85,9 +95,11 @@ public class LoginController {
 
 	//change password
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+//=======================postman test===========================
 //	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, consumes={"application/x-www-form-urlencoded"})
 //		public String resetPassword(@RequestParam(name = "email") String email, @RequestParam(name = "oldPassword") String password, @RequestParam(name = "newPassword") String newPassword){
-		public String resetPassword(@RequestBody ChangePasswordDto changePasswordDto){
+//==============================================================
+	public String resetPassword(@RequestBody ChangePasswordDto changePasswordDto){
 		String email=changePasswordDto.getEmail();
 		String oldPassword = changePasswordDto.getOldPassword();
 		String newPassword = changePasswordDto.getNewPassword();
@@ -106,6 +118,11 @@ public class LoginController {
 		return new Gson().toJson(restApiData);
 	}
 	//verify login userdata for "/login" action
+
+
+
+
+// ============================= private method part =============================
 	private Map<String, Object> loginVerify(String email, String password){
 		Map<String, Object> loginResponse = new HashMap();
 		try{
@@ -119,17 +136,15 @@ public class LoginController {
 				//status2=密碼不正確
 				loginResponse.put("status","2");
 				loginResponse.put("msg","登入失敗，密碼不正確");
-				}
+			}
 		}catch (NullPointerException ne){
 			//status3=信箱不正確
 			loginResponse.put("status","3");
 			loginResponse.put("msg","登入失敗，信箱不正確");
-			}
+		}
 		return loginResponse;
-}
-// ============================= private method part =============================
-
-	//verify new password for "/resetPassword" action
+	}
+		//verify new password for "/resetPassword" action
 	private Map<String, String> passwordChangeVerify(String email, String password){
 		Map<String, String> verifyResponse = new HashMap();
 		try{
@@ -152,8 +167,6 @@ public class LoginController {
 		}
 		return verifyResponse;
 	}
-
-
 
 	//create jwt token for "/login" action
 	private String jwtCreator(String email, String permission){
@@ -198,25 +211,17 @@ public class LoginController {
 		return loginResponse;
 	}
 
-	//send new password to user in "/getNewPassword" action
-	private Map<String, String> sendNewPassword(Member member){
-		Map methodResponse = new HashMap<>();
-		String newPassword = UUID.randomUUID().toString().substring(8);
-		member.setPassword(newPassword);
-		memberService.updatePasswordByMemNO(member.getMemNO(), newPassword);
-
+	//email sender which should be in utils package
+	public Map<String,String> libraryEmailSender(String mailFrom, Map<String, String> mailContent, String subject, String templateName){
+		Map<String, String> methodResponse = new HashMap<String, String>();
 		try{
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 			helper.setFrom("qoo90069@gmail.com");
-			helper.setTo(member.getEmail());
-			helper.setSubject("主旨：密碼重置");
-			Map<String, Object> model = new HashMap<String, Object>();
-			model.put("memNO",member.getMemNO());
-			model.put("name",member.getName());
-			model.put("password",newPassword);
+			helper.setTo(mailFrom);
+			helper.setSubject("主旨："+subject);
 			String templateString = FreeMarkerTemplateUtils
-					.processTemplateIntoString(freemarkerConfig.getTemplate("newPassword.ftl"), model);
+					.processTemplateIntoString(freemarkerConfig.getTemplate(templateName), mailContent);
 			helper.setText(templateString, true);
 			mailSender.send(mimeMessage);
 			methodResponse.put("status","1");
@@ -224,12 +229,14 @@ public class LoginController {
 		}catch(Exception e){
 			methodResponse.put("status","2");
 			methodResponse.put("msg","email fail");
+			System.out.println(e.getMessage());
 		}
 		return methodResponse;
-
 	}
 }
 
+
+//===============dto===================
 //整合後該移動至dto路徑
 class ChangePasswordDto {
 	String email="";
