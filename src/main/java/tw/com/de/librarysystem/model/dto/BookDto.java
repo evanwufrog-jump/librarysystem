@@ -2,14 +2,14 @@ package tw.com.de.librarysystem.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import tw.com.de.librarysystem.model.entity.impl.BookCategory;
+import tw.com.de.librarysystem.model.entity.impl.BookPic;
 
 @SuppressWarnings("serial")
 public class BookDto implements Serializable {
@@ -31,13 +31,14 @@ public class BookDto implements Serializable {
 	private String description;
 	private Integer day;
 	private String reservationStatus = "可預約";
-	private Set<BookPicDto> bookPics;
+	private List<BookPic> bookPics;
 
-	public Set<BookPicDto> getBookPics() {
-		if (bookPics == null) {
-			bookPics = new HashSet<BookPicDto>();
-		}
+	public List<BookPic> getBookPics() {
 		return bookPics;
+	}
+
+	public void setBookPics(List<BookPic> bookPics) {
+		this.bookPics = bookPics;
 	}
 
 	public Integer getId() {
@@ -144,10 +145,6 @@ public class BookDto implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public void setBookPics(Set<BookPicDto> bookPics) {
-		this.bookPics = bookPics;
-	}
-
 	public Integer getBookNo() {
 		return bookNo;
 	}
@@ -164,6 +161,5 @@ public class BookDto implements Serializable {
 				+ description + ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics
 				+ "]";
 	}
-
 
 }

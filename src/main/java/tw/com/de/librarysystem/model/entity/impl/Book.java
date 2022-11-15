@@ -2,9 +2,8 @@ package tw.com.de.librarysystem.model.entity.impl;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -49,9 +48,9 @@ public class Book implements Serializable {
 	private Integer day;
 	private String reservationStatus = "可預約";
 
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "book_id")
-	private Set<BookPic> bookPics;
+	private List<BookPic> bookPics;
 
 	public Integer getId() {
 		return id;
@@ -157,11 +156,11 @@ public class Book implements Serializable {
 		this.reservationStatus = reservationStatus;
 	}
 
-	public Set<BookPic> getBookPics() {
+	public List<BookPic> getBookPics() {
 		return bookPics;
 	}
 
-	public void setBookPics(Set<BookPic> bookPics) {
+	public void setBookPics(List<BookPic> bookPics) {
 		this.bookPics = bookPics;
 	}
 
@@ -181,8 +180,4 @@ public class Book implements Serializable {
 				+ description + ", day=" + day + ", reservationStatus=" + reservationStatus + ", bookPics=" + bookPics
 				+ "]";
 	}
-
-
-
-
 }
