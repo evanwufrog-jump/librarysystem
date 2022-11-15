@@ -6,23 +6,43 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.model.repository.MemberRepository;
+import tw.com.de.librarysystem.model.entity.impl.Member;
+import tw.com.de.librarysystem.service.MemberService;
+
+import javax.transaction.Transactional;
 
 @Service
-public class MemberServiceImpl {
+public class MemberServiceImpl implements MemberService {
+
 	@Autowired
 	MemberRepository memberRepository;
 
-	public List<Member> findAll(){
+	@Transactional
+	@Override
+	public List<Member> findAll() {
 		return memberRepository.findAll();
 	}
 
-	public Member findMemberByEmail(String email){return memberRepository.findByEmail(email);};
-
-	public Optional<Member> findByMemNo(String memNo){
-		return memberRepository.findById(memNo);
+	@Transactional
+	@Override
+	public Member findByEmail(String email) {
+		return memberRepository.findByEmail(email);
 	}
+
+	@Transactional
+	@Override
+	public Optional<Member> findById(String memNO) {
+		return memberRepository.findById(memNO);
+	}
+
+	@Transactional
+	@Override
+	public void updatePasswordByMemNO(String memNO, String password){
+		memberRepository.updatePasswordByMemNO(memNO,password);
+	}
+
+
 }
 
 

@@ -13,17 +13,17 @@ public class Member implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String memNO;
-	
+
 	private String name;
-	
+
 	private String password;
-	
+
 	private String permission;
-	
+
 	private String email;
-	
+
 //	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
 //	private Set<Advice> advices;
 //	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
