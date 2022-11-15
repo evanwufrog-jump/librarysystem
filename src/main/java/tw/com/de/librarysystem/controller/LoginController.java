@@ -52,16 +52,8 @@ public class LoginController {
 
 //	@PostMapping("test")
 //	public String test() {
-//		sendNewPassword(memberService.findById("0700").get());
 //		return "fine";
 //	}
-
-	//send email with new password
-	//ignorable autowired error, just spring prefer config class more nowaday
-	@Autowired
-	private JavaMailSender mailSender;
-	@Autowired
-	freemarker.template.Configuration freemarkerConfig;
 
 	//get new password
 	@RequestMapping(value = "/getNewPassword", method = RequestMethod.POST)
