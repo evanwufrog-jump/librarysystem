@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,35 +53,28 @@ public class BookController {
 	}
 
 	@PostMapping("/book")
-	public boolean save(BookDto bookdto, Integer year) {
-		boolean flag = false;
-		try {
-			String date = new SimpleDateFormat("yyyy").format(new Date());
-			year = Integer.valueOf(date);
-			Integer number;
-			BookNo bookNo = bookNoRepository.findBookNoByYear(year);
-			if (bookNo == null) {
-				number = 1;
-				bookNo = new BookNo();
-				bookNo.setNumber(number + 1);
-				bookNo.setYear(year);
-				bookNoRepository.save(bookNo);
-				int i = (year * 1000) + number;
-				bookdto.setBookNo(i);
-			} else {
-				number = bookNo.getNumber();
-				bookNo.setNumber(number + 1);
-				bookNoRepository.save(bookNo);
-				int i = (year * 1000) + number;
-				bookdto.setBookNo(i);
+	public ResponseEntity<?> save(BookDto bookdto, Integer year) {
+		String date = new SimpleDateFormat("yyyy").format(new Date());
+		year = Integer.valueOf(date);
+		Integer number;
+		BookNo bookNo = bookNoRepository.findBookNoByYear(year);
+		if (bookNo == null) {
+			number = 1;
+			bookNo = new BookNo();
+			bookNo.setNumber(number + 1);
+			bookNo.setYear(year);
+			bookNoRepository.save(bookNo);
+			int i = (year * 1000) + number;
+			bookdto.setBookNo(i);
+		} else {
+			number = bookNo.getNumber();
+			bookNo.setNumber(number + 1);
+			bookNoRepository.save(bookNo);
+			int i = (year * 1000) + number;
+			bookdto.setBookNo(i);
 
-			}
-			bookService.save(bookdto);
-			flag = true;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return flag;
+		return bookService.save(bookdto);
 	}
 
 	@DeleteMapping("/book/{id}")

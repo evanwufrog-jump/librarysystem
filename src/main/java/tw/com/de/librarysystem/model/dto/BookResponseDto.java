@@ -1,14 +1,14 @@
 package tw.com.de.librarysystem.model.dto;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import tw.com.de.librarysystem.model.entity.impl.BookCategory;
+import tw.com.de.librarysystem.model.entity.impl.BookPic;
 
 public class BookResponseDto {
 	private Integer id;
@@ -43,8 +43,7 @@ public class BookResponseDto {
 	private String isbn;
 	private String description;
 	private Integer day;
-	private Set<BookPicDto> bookPics;
-	
+	private List<BookPic> bookPics;
 	@Override
 	public String toString() {
 		return "BookResponseDto [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author="
@@ -133,14 +132,12 @@ public class BookResponseDto {
 		this.day = day;
 	}
 
-	public void setBookPics(Set<BookPicDto> bookPics) {
+	public List<BookPic> getBookPics() {
+		return bookPics;
+	}
+
+	public void setBookPics(List<BookPic> bookPics) {
 		this.bookPics = bookPics;
 	}
 
-	public Set<BookPicDto> getBookPics() {
-		if (bookPics == null) {
-			bookPics = new HashSet<BookPicDto>();
-		}
-		return bookPics;
-	}
 }
