@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.repository.BookRepository;
+import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.repository.BookRepository;
 import tw.com.de.librarysystem.service.BookService;
 
 @Service

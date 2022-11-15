@@ -17,7 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         //不寫session了(不確定是否為影響其他人功能)
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        //加入權限驗證filter
+        //加入權限驗證filter，之後需要取消註解
 //        http.addFilterBefore(new AuthorizationCheckFilter(), BasicAuthenticationFilter.class);
     }
 }

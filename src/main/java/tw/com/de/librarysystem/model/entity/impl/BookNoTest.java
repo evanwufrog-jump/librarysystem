@@ -1,12 +1,7 @@
-package tw.com.de.librarysystem.entity.impl;
+package tw.com.de.librarysystem.model.entity.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.imageio.plugins.tiff.FaxTIFFTagSet;
-
-import org.aspectj.weaver.NewConstructorTypeMunger;
-
 
 
 public class BookNoTest {

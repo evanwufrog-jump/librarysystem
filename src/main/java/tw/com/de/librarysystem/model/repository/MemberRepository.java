@@ -1,11 +1,11 @@
-package tw.com.de.librarysystem.repository;
+package tw.com.de.librarysystem.model.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import tw.com.de.librarysystem.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Member;
 
 import java.util.List;
 import java.util.Optional;

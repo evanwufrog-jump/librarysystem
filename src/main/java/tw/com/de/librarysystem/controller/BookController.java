@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.entity.impl.BookNo;
-import tw.com.de.librarysystem.repository.BookNoRepository;
+import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.BookNo;
+import tw.com.de.librarysystem.model.repository.BookNoRepository;
 import tw.com.de.librarysystem.service.BookService;
 
 @RequestMapping("/book")

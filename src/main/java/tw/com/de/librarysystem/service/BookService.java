@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.repository.query.Param;
 
-import tw.com.de.librarysystem.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Book;
 
 public interface BookService {
 	List<Book> findByTitleContainingOrAuthorContainingOrTechnologyContaining(String title, String author,

@@ -1,6 +1,6 @@
 package tw.com.de.librarysystem.service;
 
-import tw.com.de.librarysystem.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Member;
 
 import java.util.List;
 import java.util.Optional;

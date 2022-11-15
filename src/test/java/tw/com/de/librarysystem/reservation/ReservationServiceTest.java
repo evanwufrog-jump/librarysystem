@@ -1,19 +1,15 @@
 package tw.com.de.librarysystem.reservation;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.entity.impl.Member;
-import tw.com.de.librarysystem.entity.impl.Reservation;
-import tw.com.de.librarysystem.repository.BookRepository;
-import tw.com.de.librarysystem.repository.ReservationRepository;
+import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.repository.BookRepository;
+import tw.com.de.librarysystem.model.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.BookService;
 import tw.com.de.librarysystem.service.ReservationService;
 

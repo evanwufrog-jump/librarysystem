@@ -2,7 +2,7 @@ package tw.com.de.librarysystem.utility;
 
 import java.time.LocalDate;
 
-import tw.com.de.librarysystem.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Book;
 
 public class Reservation {
 	private Integer id;

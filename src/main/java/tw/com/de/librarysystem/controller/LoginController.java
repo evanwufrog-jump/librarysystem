@@ -10,8 +10,9 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
-import tw.com.de.librarysystem.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Member;
 import tw.com.de.librarysystem.service.MemberService;
+import tw.com.de.librarysystem.utility.LibraryEmailSender;
 
 import javax.mail.internet.MimeMessage;
 import java.util.*;
@@ -23,7 +24,7 @@ public class LoginController {
 	MemberService memberService;
 	//Get Json Web Token(jwt) if login success. Get fail msg if not then.
 
-// =============================controller action part =============================
+	// =============================controller action part =============================
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestBody Member member) {
 
@@ -34,17 +35,17 @@ public class LoginController {
 //		member.setPassword(password);
 //=======================================
 
-		Map<String,String> restApiData = new HashMap();
-		Map<String, Object> verifyData = loginVerify(member.getEmail(),member.getPassword());
-		restApiData.put("status",(String) verifyData.get("status"));
-		restApiData.put("msg",(String) verifyData.get("msg"));
+		Map<String, String> restApiData = new HashMap();
+		Map<String, Object> verifyData = loginVerify(member.getEmail(), member.getPassword());
+		restApiData.put("status", (String) verifyData.get("status"));
+		restApiData.put("msg", (String) verifyData.get("msg"));
 		//login status 1:登入成功 2:密碼錯誤 3:信箱錯誤
-		if(verifyData.get("status").equals("1")){
-			String jwt = jwtCreator(((Member) verifyData.get("member")).getEmail(),((Member) verifyData.get("member")).getPermission());
-			restApiData.put("jwt",jwt);
+		if (verifyData.get("status").equals("1")) {
+			String jwt = jwtCreator(((Member) verifyData.get("member")).getEmail(), ((Member) verifyData.get("member")).getPermission());
+			restApiData.put("jwt", jwt);
 			restApiData.put("email", member.getEmail());
 			restApiData.put("permission", ((Member) verifyData.get("member")).getPermission());
-			restApiData.put("name",  ((Member) verifyData.get("member")).getName());
+			restApiData.put("name", ((Member) verifyData.get("member")).getName());
 		}
 		return new Gson().toJson(restApiData);
 	}
@@ -65,42 +66,43 @@ public class LoginController {
 	//get new password
 	@RequestMapping(value = "/getNewPassword", method = RequestMethod.POST)
 //	public String forgotVerify(@RequestParam(name = "email") String,@RequestParam(name = "memberID") String) {
-	public String getNewPassword(@RequestBody Member member){
+	public String getNewPassword(@RequestBody Member member) {
 		Map<String, String> restApiData = new HashMap<>();
 
-	//let forgotVerify method，verify userData，if pass then send email with new password
-		Map<String, Object> verifyData = forgotVerify(member.getEmail(),member.getMemNO(),member.getName());
+		//let forgotVerify method，verify userData，if pass then send email with new password
+		Map<String, Object> verifyData = forgotVerify(member.getEmail(), member.getMemNO(), member.getName());
 		//verify status 1:驗證成功 2:驗證失敗 3:信箱錯誤
-		String status = (String)verifyData.get("status");
-		String msg = (String)verifyData.get("msg");
-		restApiData.put("status",status);
-		if(status.equals("1")){
+		String status = (String) verifyData.get("status");
+		String msg = (String) verifyData.get("msg");
+		restApiData.put("status", status);
+		if (status.equals("1")) {
 
 			String newPassword = UUID.randomUUID().toString().substring(8);
 			memberService.updatePasswordByMemNO(member.getMemNO(), newPassword);
 			Map<String, String> model = new HashMap<>();
-			model.put("memNO",member.getMemNO());
-			model.put("name",member.getName());
-			model.put("password",newPassword);
-			Map<String, String> senderResponse = libraryEmailSender(member.getEmail(), model, "密碼重置","newPassword.ftl");
-			if(senderResponse.get("status").equals(""))
-			restApiData.put("msg", msg);
+			model.put("memNO", member.getMemNO());
+			model.put("name", member.getName());
+			model.put("password", newPassword);
+			Map<String, String> senderResponse = new LibraryEmailSender().libraryEmailSender(member.getEmail(), model, "密碼重置", "newPassword.ftl");
+			if (senderResponse.get("status").equals(""))
+				restApiData.put("msg", msg);
 
-		}else {
+		} else {
 			//error msg to frontend
 			restApiData.put("msg", msg);
 		}
-		return  new Gson().toJson(restApiData);
+		return new Gson().toJson(restApiData);
 	}
 
 	//change password
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-//=======================postman test===========================
+//=======================po
+// stman test===========================
 //	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, consumes={"application/x-www-form-urlencoded"})
 //		public String resetPassword(@RequestParam(name = "email") String email, @RequestParam(name = "oldPassword") String password, @RequestParam(name = "newPassword") String newPassword){
 //==============================================================
-	public String resetPassword(@RequestBody ChangePasswordDto changePasswordDto){
-		String email=changePasswordDto.getEmail();
+	public String resetPassword(@RequestBody ChangePasswordDto changePasswordDto) {
+		String email = changePasswordDto.getEmail();
 		String oldPassword = changePasswordDto.getOldPassword();
 		String newPassword = changePasswordDto.getNewPassword();
 		Map<String, String> restApiData = new HashMap<>();
@@ -110,72 +112,71 @@ public class LoginController {
 		restApiData.put("status", verifyData.get("status"));
 		restApiData.put("msg", verifyData.get("msg"));
 
-		if(verifyData.get("status").equals("1")){
+		if (verifyData.get("status").equals("1")) {
 			System.out.println(newPassword);
 			System.out.println(member.getMemNO());
-			memberService.updatePasswordByMemNO(member.getMemNO(),DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+			memberService.updatePasswordByMemNO(member.getMemNO(), DigestUtils.md5DigestAsHex(newPassword.getBytes()));
 		}
 		return new Gson().toJson(restApiData);
 	}
 	//verify login userdata for "/login" action
 
 
-
-
-// ============================= private method part =============================
-	private Map<String, Object> loginVerify(String email, String password){
+	// ============================= private method part =============================
+	private Map<String, Object> loginVerify(String email, String password) {
 		Map<String, Object> loginResponse = new HashMap();
-		try{
+		try {
 			Member member = memberService.findByEmail(email);
-			if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(member.getPassword())){
+			if (DigestUtils.md5DigestAsHex(password.getBytes()).equals(member.getPassword())) {
 				//status1=登入成功
-				loginResponse.put("status","1");
-				loginResponse.put("msg","登入成功");
+				loginResponse.put("status", "1");
+				loginResponse.put("msg", "登入成功");
 				loginResponse.put("member", member);
-			}else{
+			} else {
 				//status2=密碼不正確
-				loginResponse.put("status","2");
-				loginResponse.put("msg","登入失敗，密碼不正確");
+				loginResponse.put("status", "2");
+				loginResponse.put("msg", "登入失敗，密碼不正確");
 			}
-		}catch (NullPointerException ne){
+		} catch (NullPointerException ne) {
 			//status3=信箱不正確
-			loginResponse.put("status","3");
-			loginResponse.put("msg","登入失敗，信箱不正確");
+			loginResponse.put("status", "3");
+			loginResponse.put("msg", "登入失敗，信箱不正確");
 		}
 		return loginResponse;
 	}
-		//verify new password for "/resetPassword" action
-	private Map<String, String> passwordChangeVerify(String email, String password){
+
+	//verify new password for "/resetPassword" action
+	private Map<String, String> passwordChangeVerify(String email, String password) {
 		Map<String, String> verifyResponse = new HashMap();
-		try{
+		try {
 			Member member = memberService.findByEmail(email);
 
-			if(DigestUtils.md5DigestAsHex(password.getBytes()).equals(member.getPassword())){
+			if (DigestUtils.md5DigestAsHex(password.getBytes()).equals(member.getPassword())) {
 				//status1=登入成功
-				verifyResponse.put("status","1");
-				verifyResponse.put("msg","密碼修改成功");
+				verifyResponse.put("status", "1");
+				verifyResponse.put("msg", "密碼修改成功");
 				System.out.println("code======1");
-			}else{
+			} else {
 				//status2=密碼不正確
-				verifyResponse.put("status","2");
-				verifyResponse.put("msg","密碼不正確");
+				verifyResponse.put("status", "2");
+				verifyResponse.put("msg", "密碼不正確");
 			}
-		}catch (NullPointerException ne){
+		} catch (NullPointerException ne) {
 			//status3=信箱不正確
-			verifyResponse.put("status","3");
-			verifyResponse.put("msg","登入資料已過時，請重新登入後再嘗試");
+			verifyResponse.put("status", "3");
+			verifyResponse.put("msg", "登入資料已過時，請重新登入後再嘗試");
 		}
 		return verifyResponse;
 	}
 
 	//create jwt token for "/login" action
-	private String jwtCreator(String email, String permission){
+	private String jwtCreator(String email, String permission) {
 		Date expireDate =
-				new Date(System.currentTimeMillis() + 30*60*1000);
+				new Date(System.currentTimeMillis() + 30 * 60 * 1000);
 		String jwt = Jwts.builder()
 				.setSubject(email) //以email當subject
 				.setExpiration(expireDate)
-				.claim("permission",permission)
+				.claim("permission", permission)
 				//libsysKey是整個登入系統使用的私鑰，不可外流，可變更為任意字串
 				//HS512是自選的演算法，可以替換成其他算法，在AuthorizationFilter內的key要相同
 				.signWith(SignatureAlgorithm.HS512, "libsysKey")
@@ -187,83 +188,60 @@ public class LoginController {
 	}
 
 	//verify user info for "/getNewPassword" action
-	private Map<String, Object> forgotVerify(String email, String memNO, String name){
+	private Map<String, Object> forgotVerify(String email, String memNO, String name) {
 		Map<String, Object> loginResponse = new HashMap();
-		try{
+		try {
 			Member member = memberService.findByEmail(email);
 
-			if(memNO.equals(member.getMemNO()) && name.equals(member.getName())){
+			if (memNO.equals(member.getMemNO()) && name.equals(member.getName())) {
 				//status1=驗證成功
-				loginResponse.put("status","1");
-				loginResponse.put("msg","驗證成功");
+				loginResponse.put("status", "1");
+				loginResponse.put("msg", "驗證成功");
 				loginResponse.put("member", member);
-			}else{
+			} else {
 				//status2=資料錯誤
-				loginResponse.put("status","2");
-				loginResponse.put("msg","驗證失敗，資料錯誤");
-				}
-		}catch (NullPointerException ne){
+				loginResponse.put("status", "2");
+				loginResponse.put("msg", "驗證失敗，資料錯誤");
+			}
+		} catch (NullPointerException ne) {
 			//status2=資料錯誤
-			loginResponse.put("status","2");
-			loginResponse.put("msg","驗證失敗");
+			loginResponse.put("status", "2");
+			loginResponse.put("msg", "驗證失敗");
 		}
 
 		return loginResponse;
 	}
 
-	//email sender which should be in utils package
-	public Map<String,String> libraryEmailSender(String mailFrom, Map<String, String> mailContent, String subject, String templateName){
-		Map<String, String> methodResponse = new HashMap<String, String>();
-		try{
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-			helper.setFrom("qoo90069@gmail.com");
-			helper.setTo(mailFrom);
-			helper.setSubject("主旨："+subject);
-			String templateString = FreeMarkerTemplateUtils
-					.processTemplateIntoString(freemarkerConfig.getTemplate(templateName), mailContent);
-			helper.setText(templateString, true);
-			mailSender.send(mimeMessage);
-			methodResponse.put("status","1");
-			methodResponse.put("msg","email success");
-		}catch(Exception e){
-			methodResponse.put("status","2");
-			methodResponse.put("msg","email fail");
-			System.out.println(e.getMessage());
-		}
-		return methodResponse;
-	}
-}
 
-
-//===============dto===================
+	//===============dto===================
 //整合後該移動至dto路徑
-class ChangePasswordDto {
-	String email="";
-	String oldPassword="";
-	String newPassword="";
+	class ChangePasswordDto {
+		String email = "";
+		String oldPassword = "";
+		String newPassword = "";
 
-	public String getEmail() {
-		return email;
-	}
+		public String getEmail() {
+			return email;
+		}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+		public void setEmail(String email) {
+			this.email = email;
+		}
 
-	public String getOldPassword() {
-		return oldPassword;
-	}
+		public String getOldPassword() {
+			return oldPassword;
+		}
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
+		public void setOldPassword(String oldPassword) {
+			this.oldPassword = oldPassword;
+		}
 
-	public String getNewPassword() {
-		return newPassword;
-	}
+		public String getNewPassword() {
+			return newPassword;
+		}
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
+		public void setNewPassword(String newPassword) {
+			this.newPassword = newPassword;
+		}
 	}
 }

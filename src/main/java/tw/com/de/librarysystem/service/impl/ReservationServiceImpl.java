@@ -7,11 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.de.librarysystem.entity.impl.Book;
-import tw.com.de.librarysystem.entity.impl.Member;
-import tw.com.de.librarysystem.entity.impl.Reservation;
-import tw.com.de.librarysystem.repository.BookRepository;
-import tw.com.de.librarysystem.repository.ReservationRepository;
+import tw.com.de.librarysystem.model.entity.impl.Book;
+import tw.com.de.librarysystem.model.entity.impl.Member;
+import tw.com.de.librarysystem.model.entity.impl.Reservation;
+import tw.com.de.librarysystem.model.repository.ReservationRepository;
 import tw.com.de.librarysystem.service.ReservationService;
 
 @Service
