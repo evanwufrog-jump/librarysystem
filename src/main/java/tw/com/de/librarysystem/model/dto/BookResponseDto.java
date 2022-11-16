@@ -17,15 +17,25 @@ public class BookResponseDto {
 	private String author;
 	private String technology;
 	private String publisher;
+	private String reservationStatus;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate publishDate;
-	private String status ;
+	private String status;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate postStart ;
+	private LocalDate postStart;
+
 	public String getStatus() {
 		return status;
+	}
+
+	public String getReservationStatus() {
+		return reservationStatus;
+	}
+
+	public void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 
 	public void setStatus(String status) {
@@ -44,12 +54,13 @@ public class BookResponseDto {
 	private String description;
 	private Integer day;
 	private List<BookPic> bookPics;
+
 	@Override
 	public String toString() {
 		return "BookResponseDto [id=" + id + ", title=" + title + ", bookCategory=" + bookCategory + ", author="
-				+ author + ", technology=" + technology + ", publisher=" + publisher + ", publishDate=" + publishDate
-				+ ", status=" + status + ", postStart=" + postStart + ", isbn=" + isbn + ", description=" + description
-				+ ", day=" + day + ", bookPics=" + bookPics + "]";
+				+ author + ", technology=" + technology + ", publisher=" + publisher + ", reservationStatus="
+				+ reservationStatus + ", publishDate=" + publishDate + ", status=" + status + ", postStart=" + postStart
+				+ ", isbn=" + isbn + ", description=" + description + ", day=" + day + ", bookPics=" + bookPics + "]";
 	}
 
 	public Integer getId() {
